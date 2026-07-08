@@ -1344,3 +1344,61 @@ input, select, button {
     font-size: 2.2rem;
   }
 }
+
+/* ----------------------------------------------------
+   LANGUAGE SWITCHER WIDGET
+   ---------------------------------------------------- */
+.language-switcher {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 10px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-card);
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 7px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.lang-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lang-btn.active {
+  color: var(--text-dark);
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+  font-weight: 800;
+}
+
+/* Adjust language switcher position for small screens */
+@media (max-width: 768px) {
+  .language-switcher {
+    top: 12px;
+    right: 12px;
+    padding: 2px;
+    border-radius: 8px;
+  }
+  .lang-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    border-radius: 5px;
+  }
+}
+

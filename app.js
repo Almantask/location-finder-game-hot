@@ -1,5 +1,6 @@
 import { locations } from './locations.js';
 import { synth } from './audio.js';
+import { t, getTranslatedTarget } from './i18n.js';
 
 // Game state variables
 let map = null;
@@ -15,6 +16,7 @@ let guessLatLng = null;
 let isAudioMuted = false;
 let isRoundActive = false;
 let hint4Unlocked = false;
+let currentLanguage = localStorage.getItem('geoclash_lang') || 'en';
 
 // Statistics for Game Over
 let totalGameTime = 0;
@@ -61,6 +63,77 @@ const noScoresMsg = document.getElementById('no-scores-msg');
 const playerNameInput = document.getElementById('player-name-input');
 
 /* ----------------------------------------------------
+   I18N DOM HELPERS
+   ---------------------------------------------------- */
+function updateLanguageUI() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const translation = t(key, currentLanguage);
+    if (translation) {
+      if (translation.includes('<strong') || translation.includes('<span') || translation.includes('<ol') || translation.includes('<li') || translation.includes('<i')) {
+        el.innerHTML = translation;
+      } else {
+        el.textContent = translation;
+      }
+    }
+  });
+
+  const btnMute = document.getElementById('btn-mute');
+  const btnAbort = document.getElementById('btn-abort');
+  const nameInput = document.getElementById('player-name-input');
+  
+  if (btnMute) btnMute.title = t('hud_mute_tooltip', currentLanguage);
+  if (btnAbort) btnAbort.title = t('hud_quit_tooltip', currentLanguage);
+  if (nameInput) nameInput.placeholder = t('enter_agent_name', currentLanguage);
+
+  document.title = `GeoClash // ${t('title_sub', currentLanguage)}`;
+
+  document.getElementById('lang-btn-en').classList.toggle('active', currentLanguage === 'en');
+  document.getElementById('lang-btn-lt').classList.toggle('active', currentLanguage === 'lt');
+}
+
+async function reloadRoundTranslations() {
+  const rawTarget = activeLocations[currentRoundIndex];
+  if (!rawTarget) return;
+
+  // Show loading indicators inside hints temporarily
+  for (let i = 1; i <= 3; i++) {
+    const hintRow = document.getElementById(`hint-${i}`);
+    if (hintRow && !hintRow.classList.contains('locked')) {
+      const textValEl = hintRow.querySelector('.text-val');
+      if (textValEl) textValEl.textContent = '...';
+    }
+  }
+
+  // Get new translated target
+  currentTarget = await getTranslatedTarget(rawTarget, currentLanguage);
+
+  // Update active hints and target name
+  const prefix = t('target_prefix', currentLanguage);
+  if (isRoundActive) {
+    targetCityName.textContent = `${prefix}: ???`;
+  } else {
+    targetCityName.textContent = `${prefix}: ${currentTarget.name}`;
+  }
+
+  for (let i = 1; i <= 3; i++) {
+    const hintRow = document.getElementById(`hint-${i}`);
+    if (hintRow && !hintRow.classList.contains('locked')) {
+      const textValEl = hintRow.querySelector('.text-val');
+      if (textValEl) textValEl.textContent = currentTarget[`hint${i}`];
+    }
+  }
+
+  // Update guess instruction text
+  if (guessLatLng) {
+    const prefixStr = t('guess_placed_prefix', currentLanguage);
+    guessInstructionMsg.innerHTML = `${prefixStr}: <span class="accent-text font-numeric">${guessLatLng.lat.toFixed(2)}°, ${guessLatLng.lng.toFixed(2)}°</span>`;
+  } else {
+    guessInstructionMsg.textContent = t('click_map_msg', currentLanguage);
+  }
+}
+
+/* ----------------------------------------------------
    INITIALIZATION & LOBBY LOGIC
    ---------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -68,6 +141,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
     window.lucide.createIcons();
   }
+
+  // Initialize Language Switcher UI
+  updateLanguageUI();
+
+  // Attach Language Switcher Button Event Listeners
+  document.getElementById('lang-btn-en').addEventListener('click', () => {
+    if (currentLanguage === 'en') return;
+    synth.playConfirm();
+    currentLanguage = 'en';
+    localStorage.setItem('geoclash_lang', 'en');
+    updateLanguageUI();
+    if (isRoundActive) {
+      reloadRoundTranslations();
+    }
+  });
+
+  document.getElementById('lang-btn-lt').addEventListener('click', () => {
+    if (currentLanguage === 'lt') return;
+    synth.playConfirm();
+    currentLanguage = 'lt';
+    localStorage.setItem('geoclash_lang', 'lt');
+    updateLanguageUI();
+    if (isRoundActive) {
+      reloadRoundTranslations();
+    }
+  });
 
   // Load High Scores Table
   loadHighScores();
@@ -185,7 +284,7 @@ function initMap() {
   map.on('mousemove', onMapMouseMove);
 }
 
-function loadRound() {
+async function loadRound() {
   isRoundActive = true;
   elapsedTime = 0;
   currentAttempt = 3;
@@ -206,16 +305,14 @@ function loadRound() {
     connectionLine = null;
   }
 
-  // Set current target city
-  currentTarget = activeLocations[currentRoundIndex];
-  
   // Reset Map View
   map.setView([20, 0], 2);
   document.getElementById('map').classList.remove('map-thermal-active');
   thermalCursor.classList.add('hidden');
 
   // Update UI Elements
-  targetCityName.textContent = `Target: ???`;
+  const targetPrefix = t('target_prefix', currentLanguage);
+  targetCityName.textContent = `${targetPrefix}: ???`;
   targetCityName.classList.add('accent-text');
   hudRoundVal.textContent = `${currentRoundIndex + 1} / ${totalRounds}`;
   hudTimerVal.textContent = "00:00";
@@ -223,13 +320,25 @@ function loadRound() {
   
   updateAttemptsUI();
   resetHintsUI();
+  
+  // Set placeholder hints during resolution
+  for (let i = 1; i <= 3; i++) {
+    const hintRow = document.getElementById(`hint-${i}`);
+    const textValEl = hintRow.querySelector('.text-val');
+    if (textValEl) textValEl.textContent = '...';
+  }
+
+  // Set current target city (async translation)
+  const rawTarget = activeLocations[currentRoundIndex];
+  currentTarget = await getTranslatedTarget(rawTarget, currentLanguage);
+
   unlockHint(1, true); // Unlock famous fact immediately, silently
   updateSpeedMultiplierUI();
 
   // Disable Confirm Button
   btnConfirmGuess.classList.add('disabled');
   btnConfirmGuess.disabled = true;
-  guessInstructionMsg.textContent = "Click on the map to place your guess";
+  guessInstructionMsg.textContent = t('click_map_msg', currentLanguage);
 
   // Start Timer Loop
   if (roundTimer) clearInterval(roundTimer);
@@ -350,7 +459,8 @@ function onMapClick(e) {
   // Enable Confirm button
   btnConfirmGuess.classList.remove('disabled');
   btnConfirmGuess.disabled = false;
-  guessInstructionMsg.innerHTML = `Guess placed: <span class="accent-text font-numeric">${guessLatLng.lat.toFixed(2)}°, ${guessLatLng.lng.toFixed(2)}°</span>`;
+  const prefixStr = t('guess_placed_prefix', currentLanguage);
+  guessInstructionMsg.innerHTML = `${prefixStr}: <span class="accent-text font-numeric">${guessLatLng.lat.toFixed(2)}°, ${guessLatLng.lng.toFixed(2)}°</span>`;
 }
 
 function onMapMouseMove(e) {
@@ -406,7 +516,8 @@ function confirmGuess() {
     if (currentAttempt > 0) {
       // Prompt retry
       synth.playFailure();
-      guessInstructionMsg.innerHTML = `<span class="accent-text text-glow-red font-numeric">${distanceKm.toLocaleString()} km</span> away. Too far! Try again.`;
+      const tooFarMsg = t('too_far_msg', currentLanguage);
+      guessInstructionMsg.innerHTML = `<span class="accent-text text-glow-red font-numeric">${distanceKm.toLocaleString()} km</span> ${tooFarMsg}`;
       
       // Quick flash animation on map or layout could go here
     } else {
@@ -458,7 +569,8 @@ function failRound(distanceKm) {
 
 function revealTargetOnMap() {
   // Reveal actual target name
-  targetCityName.textContent = `Target: ${currentTarget.name}`;
+  const prefix = t('target_prefix', currentLanguage);
+  targetCityName.textContent = `${prefix}: ${currentTarget.name}`;
 
   const targetLatLng = L.latLng(currentTarget.coords[0], currentTarget.coords[1]);
 
@@ -510,13 +622,13 @@ function showRoundSummaryModal(distanceKm, accScore, speedScore, roundTotal, isS
   }
 
   if (isSuccess) {
-    title.textContent = "Location Secured";
+    title.textContent = t('loc_secured', currentLanguage);
     title.style.color = "var(--accent-cyan)";
-    subtitle.textContent = "Target identified within threshold";
+    subtitle.textContent = t('loc_secured_sub', currentLanguage);
   } else {
-    title.textContent = "Mission Compromised";
+    title.textContent = t('mission_compromised', currentLanguage);
     title.style.color = "var(--accent-red)";
-    subtitle.textContent = "Target location lost (out of attempts)";
+    subtitle.textContent = t('mission_compromised_sub', currentLanguage);
   }
 
   distVal.textContent = `${distanceKm.toLocaleString()} km`;
@@ -527,21 +639,23 @@ function showRoundSummaryModal(distanceKm, accScore, speedScore, roundTotal, isS
   // Smart tip generator
   let tipText = "";
   if (distanceKm <= 50) {
-    tipText = `🎯 <strong>Bullseye!</strong> Incredible spatial accuracy! You were spot on target (${distanceKm} km).`;
+    tipText = t('tip_bullseye', currentLanguage).replace('${distanceKm}', distanceKm);
   } else if (distanceKm <= 200) {
-    tipText = `⚡ <strong>Superb!</strong> Just a short distance off (${distanceKm} km). You navigated the map with expertise.`;
+    tipText = t('tip_superb', currentLanguage).replace('${distanceKm}', distanceKm);
   } else if (distanceKm <= 1000) {
-    tipText = `👍 <strong>Confirmed.</strong> Good enough to secure target data. Try to lock it in faster next round.`;
+    tipText = t('tip_confirmed', currentLanguage);
   } else {
-    tipText = `⚠️ <strong>Intelligence Failure.</strong> The target city was <strong>${currentTarget.name}</strong>, located in the continent of <strong>${currentTarget.continent}</strong>.`;
+    tipText = t('tip_failure', currentLanguage)
+      .replace('${targetName}', currentTarget.name)
+      .replace('${continent}', currentTarget.continent);
   }
   tipsBox.innerHTML = tipText;
 
   // Rename button on last round
   if (currentRoundIndex === totalRounds - 1) {
-    nextBtnText.textContent = "VIEW FINAL RESULTS";
+    nextBtnText.textContent = t('view_final_results', currentLanguage);
   } else {
-    nextBtnText.textContent = "NEXT LOCATION";
+    nextBtnText.textContent = t('next_location', currentLanguage);
   }
 
   // Open modal overlay
@@ -594,7 +708,7 @@ function gameOver() {
 
 function abortGame() {
   synth.playConfirm();
-  if (confirm("Are you sure you want to abort the current game session? Your progress will be lost.")) {
+  if (confirm(t('abort_confirm', currentLanguage))) {
     clearInterval(roundTimer);
     isRoundActive = false;
     transitionToScreen('start-menu');
@@ -666,11 +780,12 @@ function renderLeaderboardTable(scores) {
 }
 
 function submitHighScore() {
-  const name = playerNameInput.value.trim() || "Anonymous Agent";
+  const name = playerNameInput.value.trim() || t('anonymous_agent', currentLanguage);
   synth.playConfirm();
 
   const avgDistance = Math.round(distancesList.reduce((a, b) => a + b, 0) / distancesList.length);
-  const dateStr = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  const locale = currentLanguage === 'en' ? 'en-US' : 'lt-LT';
+  const dateStr = new Date().toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' });
 
   const newEntry = {
     name: name,

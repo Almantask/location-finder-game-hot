@@ -23,6 +23,12 @@
 
   <!-- Main App Wrapper -->
   <div id="app-container">
+
+    <!-- Language Switcher widget floating at top-right -->
+    <div class="language-switcher glass-panel pointer-events-auto">
+      <button id="lang-btn-en" class="lang-btn active">EN</button>
+      <button id="lang-btn-lt" class="lang-btn">LT</button>
+    </div>
     
     <!-- 1. START MENU STATE -->
     <div id="start-menu" class="screen-state active-state">
@@ -30,35 +36,35 @@
         <div class="logo-area">
           <div class="logo-glow"></div>
           <h1 class="logo-title">GEO<span class="accent-text">CLASH</span></h1>
-          <p class="logo-subtitle">Thermal Location Finder</p>
+          <p class="logo-subtitle" data-i18n="title_sub">Thermal Location Finder</p>
         </div>
         
         <div class="instructions-card">
-          <h3><i data-lucide="compass" class="icon-spin"></i> How to Play</h3>
+          <h3><i data-lucide="compass" class="icon-spin"></i> <span data-i18n="how_to_play">How to Play</span></h3>
           <ul>
-            <li>You will be given a target city to locate on a <strong>blind map</strong> (its name is hidden at first!).</li>
-            <li>Click the map to place your guess marker, then click <strong>Confirm Guess</strong>.</li>
-            <li>You have <strong>3 attempts</strong> per location. Correct guess range is <strong>1000 km</strong>.</li>
-            <li>Every <strong>15 seconds</strong>, a new hint unlocks (first hint is available immediately):
+            <li data-i18n="rule_1">You will be given a target city to locate on a <strong>blind map</strong> (its name is hidden at first!).</li>
+            <li data-i18n="rule_2">Click the map to place your guess marker, then click <strong>Confirm Guess</strong>.</li>
+            <li data-i18n="rule_3">You have <strong>3 attempts</strong> per location. Correct guess range is <strong>1000 km</strong>.</li>
+            <li><span data-i18n="rule_4">Every <strong>15 seconds</strong>, a new hint unlocks (first hint is available immediately):</span>
               <ol>
-                <li>Landmarks & Culture Clue (At Start)</li>
-                <li>Geography & Nature Clue (At 15s)</li>
-                <li>History & Trivia Clue (At 30s)</li>
-                <li><strong>Thermal Mouse Pointer</strong> (At 45s)</li>
+                <li data-i18n="rule_4_1">Landmarks & Culture Clue (At Start)</li>
+                <li data-i18n="rule_4_2">Geography & Nature Clue (At 15s)</li>
+                <li data-i18n="rule_4_3">History & Trivia Clue (At 30s)</li>
+                <li data-i18n="rule_4_4"><strong>Thermal Mouse Pointer</strong> (At 45s)</li>
               </ol>
             </li>
-            <li>Score depends on distance accuracy and response speed. Good luck!</li>
+            <li data-i18n="rule_5">Score depends on distance accuracy and response speed. Good luck!</li>
           </ul>
         </div>
         
         <div class="game-settings">
           <div class="setting-group">
-            <label for="round-select">Rounds per Session</label>
+            <label for="round-select" data-i18n="rounds_per_session">Rounds per Session</label>
             <div class="select-wrapper">
               <select id="round-select">
-                <option value="5" selected>5 Locations (Short)</option>
-                <option value="10">10 Locations (Standard)</option>
-                <option value="20">20 Locations (Marathon)</option>
+                <option value="5" selected data-i18n="round_short">5 Locations (Short)</option>
+                <option value="10" data-i18n="round_standard">10 Locations (Standard)</option>
+                <option value="20" data-i18n="round_marathon">20 Locations (Marathon)</option>
               </select>
             </div>
           </div>
@@ -66,14 +72,14 @@
 
         <div class="menu-actions">
           <button id="btn-start" class="btn-primary glow-btn">
-            <span>START MISSION</span>
+            <span data-i18n="start_mission">START MISSION</span>
             <i data-lucide="play"></i>
           </button>
         </div>
         
         <!-- Scoreboard Button -->
         <button id="btn-show-scores" class="btn-secondary">
-          <i data-lucide="trophy"></i> View High Scores
+          <i data-lucide="trophy"></i> <span data-i18n="view_high_scores">View High Scores</span>
         </button>
       </div>
     </div>
@@ -82,7 +88,7 @@
     <div id="scores-modal" class="modal-overlay hidden">
       <div class="modal-content glass-panel animate-scale-in">
         <div class="modal-header">
-          <h2><i data-lucide="trophy" class="gold-text"></i> Global Leaderboard</h2>
+          <h2><i data-lucide="trophy" class="gold-text"></i> <span data-i18n="global_leaderboard">Global Leaderboard</span></h2>
           <button id="btn-close-scores" class="btn-close"><i data-lucide="x"></i></button>
         </div>
         <div class="modal-body">
@@ -90,11 +96,11 @@
             <table class="leaderboard-table">
               <thead>
                 <tr>
-                  <th>Rank</th>
-                  <th>Player</th>
-                  <th>Score</th>
-                  <th>Accuracy</th>
-                  <th>Date</th>
+                  <th data-i18n="rank">Rank</th>
+                  <th data-i18n="player">Player</th>
+                  <th data-i18n="score">Score</th>
+                  <th data-i18n="accuracy">Accuracy</th>
+                  <th data-i18n="date">Date</th>
                 </tr>
               </thead>
               <tbody id="leaderboard-body">
@@ -103,7 +109,7 @@
             </table>
             <div id="no-scores-msg" class="empty-state hidden">
               <i data-lucide="database-backup"></i>
-              <p>No high scores cached yet. Start playing to rank first!</p>
+              <p data-i18n="no_scores">No high scores cached yet. Start playing to rank first!</p>
             </div>
           </div>
         </div>
@@ -122,22 +128,22 @@
         <!-- Top Stats Bar -->
         <div class="hud-top-bar glass-panel pointer-events-auto">
           <div class="hud-item round-counter">
-            <span class="hud-label">LOCATION</span>
+            <span class="hud-label" data-i18n="hud_location">LOCATION</span>
             <span id="hud-round-val" class="hud-value font-numeric">1 / 5</span>
           </div>
           
           <div class="hud-item main-timer">
-            <span class="hud-label">TIME ELAPSED</span>
+            <span class="hud-label" data-i18n="hud_time_elapsed">TIME ELAPSED</span>
             <span id="hud-timer-val" class="hud-value font-numeric text-glow-blue">00:00</span>
           </div>
 
           <div class="hud-item speed-multiplier">
-            <span class="hud-label">MULTIPLIER</span>
+            <span class="hud-label" data-i18n="hud_multiplier">MULTIPLIER</span>
             <span id="hud-mult-val" class="hud-value font-numeric accent-text text-glow-red">x2.00</span>
           </div>
 
           <div class="hud-item total-score">
-            <span class="hud-label">TOTAL SCORE</span>
+            <span class="hud-label" data-i18n="hud_total_score">TOTAL SCORE</span>
             <span id="hud-score-val" class="hud-value font-numeric">00000</span>
           </div>
 
@@ -155,14 +161,14 @@
         <div class="hints-panel-container pointer-events-auto">
           <div class="target-card glass-panel">
             <div class="target-title-wrapper">
-              <span class="target-label">FIND TARGET</span>
-              <h2 id="target-city-name" class="target-name">Target Location</h2>
+              <span class="target-label" data-i18n="find_target">FIND TARGET</span>
+              <h2 id="target-city-name" class="target-name" data-i18n="target_default">Target Location</h2>
             </div>
           </div>
 
           <div class="hints-list-card glass-panel">
             <div class="hints-header">
-              <h3><i data-lucide="help-circle"></i> Intelligence Brief</h3>
+              <h3><i data-lucide="help-circle"></i> <span data-i18n="intel_brief">Intelligence Brief</span></h3>
               <div class="hint-timer-bar-wrapper">
                 <div id="hint-progress-bar" class="hint-timer-bar"></div>
               </div>
@@ -174,10 +180,10 @@
                 <div class="hint-indicator">
                   <i data-lucide="lock" class="lock-icon"></i>
                   <i data-lucide="sparkles" class="unlock-icon"></i>
-                  <span class="hint-number">HINT 1</span>
+                  <span class="hint-number" data-i18n="hint_1_title">HINT 1</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At Start: Landmarks & Culture</span>
+                  <span class="hint-time" data-i18n="hint_1_sub">At Start: Landmarks & Culture</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -187,10 +193,10 @@
                 <div class="hint-indicator">
                   <i data-lucide="lock" class="lock-icon"></i>
                   <i data-lucide="globe" class="unlock-icon"></i>
-                  <span class="hint-number">HINT 2</span>
+                  <span class="hint-number" data-i18n="hint_2_title">HINT 2</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 15s: Geography & Nature</span>
+                  <span class="hint-time" data-i18n="hint_2_sub">At 15s: Geography & Nature</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -200,10 +206,10 @@
                 <div class="hint-indicator">
                   <i data-lucide="lock" class="lock-icon"></i>
                   <i data-lucide="milestone" class="unlock-icon"></i>
-                  <span class="hint-number">HINT 3</span>
+                  <span class="hint-number" data-i18n="hint_3_title">HINT 3</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 30s: History & Trivia</span>
+                  <span class="hint-time" data-i18n="hint_3_sub">At 30s: History & Trivia</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -213,11 +219,11 @@
                 <div class="hint-indicator">
                   <i data-lucide="lock" class="lock-icon"></i>
                   <i data-lucide="flame" class="unlock-icon"></i>
-                  <span class="hint-number">HINT 4</span>
+                  <span class="hint-number" data-i18n="hint_4_title">HINT 4</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 45s: Thermal Cursor</span>
-                  <p class="hint-text text-val">Thermal heat tracking active. Move mouse to track proximity.</p>
+                  <span class="hint-time" data-i18n="hint_4_sub">At 45s: Thermal Cursor</span>
+                  <p class="hint-text text-val" data-i18n="hint_4_text">Thermal heat tracking active. Move mouse to track proximity.</p>
                 </div>
               </div>
             </div>
@@ -228,7 +234,7 @@
         <div class="bottom-actions-wrapper pointer-events-auto">
           <div class="action-card glass-panel">
             <div class="attempts-container">
-              <span class="attempts-label">ATTEMPTS</span>
+              <span class="attempts-label" data-i18n="attempts">ATTEMPTS</span>
               <div id="attempts-lives" class="hearts-list">
                 <i data-lucide="heart" class="heart-icon filled"></i>
                 <i data-lucide="heart" class="heart-icon filled"></i>
@@ -237,9 +243,9 @@
             </div>
 
             <div class="action-buttons">
-              <span id="guess-instruction-msg" class="action-msg">Place marker on the map</span>
+              <span id="guess-instruction-msg" class="action-msg" data-i18n="place_marker_msg">Place marker on the map</span>
               <button id="btn-confirm-guess" class="btn-primary glow-btn disabled" disabled>
-                <span>CONFIRM GUESS</span>
+                <span data-i18n="confirm_guess">CONFIRM GUESS</span>
                 <i data-lucide="check-circle-2"></i>
               </button>
             </div>
@@ -253,28 +259,28 @@
     <div id="summary-overlay" class="modal-overlay hidden">
       <div class="modal-content glass-panel animate-scale-in summary-content">
         <div class="summary-header">
-          <h2 id="summary-title">Round Complete</h2>
-          <p id="summary-subtitle" class="accent-text">Points Awarded</p>
-          <div id="summary-target-info" class="summary-target-info">Target: <span id="summary-target-name">???</span></div>
+          <h2 id="summary-title" data-i18n="round_complete">Round Complete</h2>
+          <p id="summary-subtitle" class="accent-text" data-i18n="points_awarded">Points Awarded</p>
+          <div id="summary-target-info" class="summary-target-info"><span data-i18n="target_prefix">Target</span>: <span id="summary-target-name">???</span></div>
         </div>
         
         <div class="summary-body">
           <div class="distance-metric">
-            <span class="metric-label">DISTANCE FROM TARGET</span>
+            <span class="metric-label" data-i18n="dist_from_target">DISTANCE FROM TARGET</span>
             <span id="summary-distance-val" class="metric-value font-numeric">234 km</span>
           </div>
 
           <div class="points-breakdown">
             <div class="points-row">
-              <span class="points-label"><i data-lucide="target" class="blue-text"></i> Accuracy Score</span>
+              <span class="points-label"><i data-lucide="target" class="blue-text"></i> <span data-i18n="accuracy_score_label">Accuracy Score</span></span>
               <span id="summary-score-acc" class="points-value font-numeric">+840</span>
             </div>
             <div class="points-row">
-              <span class="points-label"><i data-lucide="zap" class="yellow-text"></i> Time Bonus</span>
+              <span class="points-label"><i data-lucide="zap" class="yellow-text"></i> <span data-i18n="time_bonus_label">Time Bonus</span></span>
               <span id="summary-score-speed" class="points-value font-numeric">+340</span>
             </div>
             <div class="points-row total-row">
-              <span class="points-label">Total Round Points</span>
+              <span class="points-label" data-i18n="total_round_pts">Total Round Points</span>
               <span id="summary-score-total" class="points-value font-numeric accent-text">+1,180</span>
             </div>
           </div>
@@ -286,7 +292,7 @@
 
         <div class="summary-actions">
           <button id="btn-next-round" class="btn-primary glow-btn">
-            <span id="next-btn-text">NEXT LOCATION</span>
+            <span id="next-btn-text" data-i18n="next_location">NEXT LOCATION</span>
             <i data-lucide="arrow-right"></i>
           </button>
         </div>
@@ -297,26 +303,26 @@
     <div id="game-over" class="screen-state hidden">
       <div class="menu-content glass-panel animate-fade-in">
         <div class="game-over-header">
-          <h1 class="glow-text-red">MISSION COMPLETE</h1>
-          <p class="subtitle">Global Intelligence Briefing Over</p>
+          <h1 class="glow-text-red" data-i18n="mission_complete">MISSION COMPLETE</h1>
+          <p class="subtitle" data-i18n="game_over_sub">Global Intelligence Briefing Over</p>
         </div>
 
         <div class="game-over-stats">
           <div class="final-stat-box">
-            <span class="final-stat-label">FINAL SCORE</span>
+            <span class="final-stat-label" data-i18n="final_score">FINAL SCORE</span>
             <span id="final-score-val" class="final-stat-value font-numeric accent-text text-glow-red">0</span>
           </div>
           <div class="final-stat-grid">
             <div class="final-stat-item">
-              <span class="final-stat-label-small">Avg Distance</span>
+              <span class="final-stat-label-small" data-i18n="avg_dist">Avg Distance</span>
               <span id="final-avg-dist-val" class="final-stat-value-small font-numeric">0 km</span>
             </div>
             <div class="final-stat-item">
-              <span class="final-stat-label-small">Perfect Guesses</span>
+              <span class="final-stat-label-small" data-i18n="perfect_guesses">Perfect Guesses</span>
               <span id="final-perfect-guesses-val" class="final-stat-value-small font-numeric">0</span>
             </div>
             <div class="final-stat-item">
-              <span class="final-stat-label-small">Time Taken</span>
+              <span class="final-stat-label-small" data-i18n="time_taken">Time Taken</span>
               <span id="final-total-time-val" class="final-stat-value-small font-numeric">0s</span>
             </div>
           </div>
@@ -324,12 +330,12 @@
 
         <!-- Leaderboard Submit Form (Hidden if not top score, or always visible to let users record runs) -->
         <div id="highscore-submit-form" class="highscore-form-card">
-          <h3><i data-lucide="edit-3"></i> Record High Score</h3>
-          <p>You qualified for the leaderboard! Enter your name below:</p>
+          <h3><i data-lucide="edit-3"></i> <span data-i18n="record_high_score">Record High Score</span></h3>
+          <p data-i18n="qualified_msg">You qualified for the leaderboard! Enter your name below:</p>
           <div class="form-inputs">
             <input type="text" id="player-name-input" maxlength="15" placeholder="Enter Agent Name" value="Agent_007">
             <button id="btn-submit-highscore" class="btn-primary">
-              <span>RECORD</span>
+              <span data-i18n="record_btn">RECORD</span>
               <i data-lucide="save"></i>
             </button>
           </div>
@@ -337,11 +343,11 @@
 
         <div class="menu-actions game-over-actions">
           <button id="btn-restart" class="btn-primary glow-btn">
-            <span>PLAY AGAIN</span>
+            <span data-i18n="play_again">PLAY AGAIN</span>
             <i data-lucide="refresh-cw"></i>
           </button>
           <button id="btn-return-menu" class="btn-secondary">
-            <i data-lucide="home"></i> Main Menu
+            <i data-lucide="home"></i> <span data-i18n="main_menu">Main Menu</span>
           </button>
         </div>
       </div>
