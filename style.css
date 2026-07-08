@@ -1137,6 +1137,21 @@ input, select, button {
   letter-spacing: 0.15em;
 }
 
+.summary-target-info {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  margin-top: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#summary-target-name {
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-shadow: 0 0 10px rgba(255, 183, 3, 0.4);
+}
+
 .summary-body {
   margin: 28px 0;
   display: flex;

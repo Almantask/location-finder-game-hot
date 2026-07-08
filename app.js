@@ -215,7 +215,7 @@ function loadRound() {
   thermalCursor.classList.add('hidden');
 
   // Update UI Elements
-  targetCityName.textContent = `Target: ${currentTarget.name}`;
+  targetCityName.textContent = `Target: ???`;
   targetCityName.classList.add('accent-text');
   hudRoundVal.textContent = `${currentRoundIndex + 1} / ${totalRounds}`;
   hudTimerVal.textContent = "00:00";
@@ -296,12 +296,9 @@ function resetHintsUI() {
     const hintRow = document.getElementById(`hint-${i}`);
     hintRow.className = 'hint-row locked';
     
-    if (i === 1) {
-      hintRow.querySelector('.text-val').textContent = '';
-    } else if (i === 2) {
-      hintRow.querySelector('.text-val').textContent = '';
-    } else if (i === 3) {
-      hintRow.querySelector('.text-val').textContent = '';
+    const textValEl = hintRow.querySelector('.text-val');
+    if (textValEl) {
+      textValEl.textContent = '';
     }
   }
 }
@@ -314,11 +311,11 @@ function unlockHint(number, silent = false) {
   hintRow.classList.remove('locked');
 
   if (number === 1) {
-    hintRow.querySelector('.text-val').textContent = currentTarget.fact;
+    hintRow.querySelector('.text-val').textContent = currentTarget.hint1;
   } else if (number === 2) {
-    hintRow.querySelector('.text-val').textContent = currentTarget.continent;
+    hintRow.querySelector('.text-val').textContent = currentTarget.hint2;
   } else if (number === 3) {
-    hintRow.querySelector('.text-val').textContent = currentTarget.neighbors;
+    hintRow.querySelector('.text-val').textContent = currentTarget.hint3;
   } else if (number === 4) {
     // Enable Thermal Cursor
     hint4Unlocked = true;
@@ -423,7 +420,6 @@ function successRound(distanceKm) {
   isRoundActive = false;
   clearInterval(roundTimer);
   synth.playSuccess();
-  synth.speak(currentTarget.name);
 
   distancesList.push(distanceKm);
   if (distanceKm <= 50) {
@@ -501,12 +497,17 @@ function revealTargetOnMap() {
 function showRoundSummaryModal(distanceKm, accScore, speedScore, roundTotal, isSuccess) {
   const title = document.getElementById('summary-title');
   const subtitle = document.getElementById('summary-subtitle');
+  const targetName = document.getElementById('summary-target-name');
   const distVal = document.getElementById('summary-distance-val');
   const scoreAcc = document.getElementById('summary-score-acc');
   const scoreSpeed = document.getElementById('summary-score-speed');
   const scoreTotal = document.getElementById('summary-score-total');
   const tipsBox = document.getElementById('summary-tips-box');
   const nextBtnText = document.getElementById('next-btn-text');
+
+  if (targetName && currentTarget) {
+    targetName.textContent = currentTarget.name;
+  }
 
   if (isSuccess) {
     title.textContent = "Location Secured";

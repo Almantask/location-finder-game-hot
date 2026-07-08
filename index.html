@@ -41,9 +41,9 @@
             <li>You have <strong>3 attempts</strong> per location. Correct guess range is <strong>1000 km</strong>.</li>
             <li>Every <strong>15 seconds</strong>, a new hint unlocks (first hint is available immediately):
               <ol>
-                <li>Famous Cultural/Historical Fact (At Start)</li>
-                <li>Continent Name (At 15s)</li>
-                <li>Neighboring Countries/Waters (At 30s)</li>
+                <li>Landmarks & Culture Clue (At Start)</li>
+                <li>Geography & Nature Clue (At 15s)</li>
+                <li>History & Trivia Clue (At 30s)</li>
                 <li><strong>Thermal Mouse Pointer</strong> (At 45s)</li>
               </ol>
             </li>
@@ -177,7 +177,7 @@
                   <span class="hint-number">HINT 1</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At Start: Famous Fact</span>
+                  <span class="hint-time">At Start: Landmarks & Culture</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -190,8 +190,8 @@
                   <span class="hint-number">HINT 2</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 15s: Continent</span>
-                  <p class="hint-text"><span class="hint-label">Continent:</span> <span class="text-val"></span></p>
+                  <span class="hint-time">At 15s: Geography & Nature</span>
+                  <p class="hint-text text-val"></p>
                 </div>
               </div>
 
@@ -203,7 +203,7 @@
                   <span class="hint-number">HINT 3</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 30s: Neighbors</span>
+                  <span class="hint-time">At 30s: History & Trivia</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -255,6 +255,7 @@
         <div class="summary-header">
           <h2 id="summary-title">Round Complete</h2>
           <p id="summary-subtitle" class="accent-text">Points Awarded</p>
+          <div id="summary-target-info" class="summary-target-info">Target: <span id="summary-target-name">???</span></div>
         </div>
         
         <div class="summary-body">
