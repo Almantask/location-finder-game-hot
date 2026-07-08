@@ -223,6 +223,7 @@ function loadRound() {
   
   updateAttemptsUI();
   resetHintsUI();
+  unlockHint(1, true); // Unlock famous fact immediately, silently
   updateSpeedMultiplierUI();
 
   // Disable Confirm Button
@@ -248,8 +249,8 @@ function tickTimer() {
   updateSpeedMultiplierUI();
 
   // Progress Bar for hints
-  // Hints unlock at: 15s (Hint 1), 30s (Hint 2), 45s (Hint 3), 60s (Hint 4)
-  if (elapsedTime <= 60) {
+  // Hints unlock at: 0s (Hint 1 - Immediate), 15s (Hint 2), 30s (Hint 3), 45s (Hint 4)
+  if (elapsedTime <= 45) {
     const segmentTime = elapsedTime % 15;
     const progress = (segmentTime / 15) * 100;
     // If exact milestone, fill progress to 100% momentarily
@@ -260,12 +261,10 @@ function tickTimer() {
 
   // Trigger Hint unlocks
   if (elapsedTime === 15) {
-    unlockHint(1);
-  } else if (elapsedTime === 30) {
     unlockHint(2);
-  } else if (elapsedTime === 45) {
+  } else if (elapsedTime === 30) {
     unlockHint(3);
-  } else if (elapsedTime === 60) {
+  } else if (elapsedTime === 45) {
     unlockHint(4);
   }
 }
@@ -307,8 +306,10 @@ function resetHintsUI() {
   }
 }
 
-function unlockHint(number) {
-  synth.playHint();
+function unlockHint(number, silent = false) {
+  if (!silent) {
+    synth.playHint();
+  }
   const hintRow = document.getElementById(`hint-${number}`);
   hintRow.classList.remove('locked');
 
@@ -422,6 +423,7 @@ function successRound(distanceKm) {
   isRoundActive = false;
   clearInterval(roundTimer);
   synth.playSuccess();
+  synth.speak(currentTarget.name);
 
   distancesList.push(distanceKm);
   if (distanceKm <= 50) {
@@ -459,6 +461,9 @@ function failRound(distanceKm) {
 }
 
 function revealTargetOnMap() {
+  // Reveal actual target name
+  targetCityName.textContent = `Target: ${currentTarget.name}`;
+
   const targetLatLng = L.latLng(currentTarget.coords[0], currentTarget.coords[1]);
 
   // Target Custom Icon (Gold marker)

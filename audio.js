@@ -200,7 +200,19 @@ class AudioSynth {
       osc.stop(now + note.time + duration);
     });
   }
+
+  speak(text) {
+    if (this.muted) return;
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+  }
 }
+
 
 export const synth = new AudioSynth();
 export default synth;

@@ -36,15 +36,15 @@
         <div class="instructions-card">
           <h3><i data-lucide="compass" class="icon-spin"></i> How to Play</h3>
           <ul>
-            <li>You will be given a target city to locate on a <strong>blind map</strong>.</li>
+            <li>You will be given a target city to locate on a <strong>blind map</strong> (its name is hidden at first!).</li>
             <li>Click the map to place your guess marker, then click <strong>Confirm Guess</strong>.</li>
             <li>You have <strong>3 attempts</strong> per location. Correct guess range is <strong>1000 km</strong>.</li>
-            <li>Every <strong>15 seconds</strong>, a new hint unlocks:
+            <li>Every <strong>15 seconds</strong>, a new hint unlocks (first hint is available immediately):
               <ol>
-                <li>Famous Cultural/Historical Fact</li>
-                <li>Continent Name</li>
-                <li>Neighboring Countries/Waters</li>
-                <li><strong>Thermal Mouse Pointer</strong> (gets redder/hotter near target)</li>
+                <li>Famous Cultural/Historical Fact (At Start)</li>
+                <li>Continent Name (At 15s)</li>
+                <li>Neighboring Countries/Waters (At 30s)</li>
+                <li><strong>Thermal Mouse Pointer</strong> (At 45s)</li>
               </ol>
             </li>
             <li>Score depends on distance accuracy and response speed. Good luck!</li>
@@ -177,7 +177,7 @@
                   <span class="hint-number">HINT 1</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 15s: Famous Fact</span>
+                  <span class="hint-time">At Start: Famous Fact</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -190,7 +190,7 @@
                   <span class="hint-number">HINT 2</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 30s: Continent</span>
+                  <span class="hint-time">At 15s: Continent</span>
                   <p class="hint-text"><span class="hint-label">Continent:</span> <span class="text-val"></span></p>
                 </div>
               </div>
@@ -203,7 +203,7 @@
                   <span class="hint-number">HINT 3</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 45s: Neighbors</span>
+                  <span class="hint-time">At 30s: Neighbors</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -216,7 +216,7 @@
                   <span class="hint-number">HINT 4</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time">At 60s: Thermal Cursor</span>
+                  <span class="hint-time">At 45s: Thermal Cursor</span>
                   <p class="hint-text text-val">Thermal heat tracking active. Move mouse to track proximity.</p>
                 </div>
               </div>
