@@ -1198,5 +1198,1205 @@ export const locations = [
     "hint1": "Famous for the engineering marvel of the Miraflores Locks and the historic colonial Casco Viejo district.",
     "hint2": "Situated on the Pacific entrance of a famous interoceanic canal in Central America.",
     "hint3": "A major banking hub with an impressive skyline, often nicknamed the 'Miami of Central America'."
+  },
+  {
+    "id": 101,
+    "name": "Riyadh",
+    "coords": [
+      24.7136,
+      46.6753
+    ],
+    "continent": "Asia",
+    "hint1": "Home to the futuristic, bottle-opener-shaped skyscraper known as the Kingdom Centre.",
+    "hint2": "Situated on a large desert plateau in the center of the Arabian Peninsula.",
+    "hint3": "Originally an oasis settlement, now the sprawling financial and political capital of a desert kingdom."
+  },
+  {
+    "id": 102,
+    "name": "Baghdad",
+    "coords": [
+      33.3152,
+      44.3661
+    ],
+    "continent": "Asia",
+    "hint1": "Established in the 8th century, it was the capital of the Abbasid Caliphate and a hub of the Golden Age of Islam.",
+    "hint2": "Situated on both banks of the Tigris River, in the heart of ancient Mesopotamia.",
+    "hint3": "Famous historically for the House of Wisdom library, which attracted scholars from across the medieval world."
+  },
+  {
+    "id": 103,
+    "name": "Tehran",
+    "coords": [
+      35.6892,
+      51.389
+    ],
+    "continent": "Asia",
+    "hint1": "Home to the massive, historic Grand Bazaar and the modern 435-meter-tall Milad Tower.",
+    "hint2": "Located at the southern foot of the towering Alborz mountain range in Western Asia.",
+    "hint3": "Features the Golestan Palace, the former seat of power of the Qajar dynasty."
+  },
+  {
+    "id": 104,
+    "name": "Ho Chi Minh City",
+    "coords": [
+      10.8231,
+      106.6297
+    ],
+    "continent": "Asia",
+    "hint1": "Features the historic French-built Notre-Dame Cathedral and the central Ben Thanh Market.",
+    "hint2": "Located in the southern region of Vietnam, near the Mekong Delta.",
+    "hint3": "Formerly known as Saigon, it was renamed in 1976 after the historic communist leader."
+  },
+  {
+    "id": 105,
+    "name": "Osaka",
+    "coords": [
+      34.6937,
+      135.5023
+    ],
+    "continent": "Asia",
+    "hint1": "Famous for its historic 16th-century castle, the vibrant neon signs of Dotonbori, and a major Universal Studios park.",
+    "hint2": "A large port city and major commercial center located in the Kansai region on the island of Honshu.",
+    "hint3": "Widely regarded as the nation's culinary capital, famous for street foods like takoyaki and okonomiyaki."
+  },
+  {
+    "id": 106,
+    "name": "Cebu",
+    "coords": [
+      10.3157,
+      123.8854
+    ],
+    "continent": "Asia",
+    "hint1": "Home to Magellan's Cross and Fort San Pedro, dating back to the earliest Spanish contact in the archipelago.",
+    "hint2": "Located in the Central Visayas region of a vast Southeast Asian archipelago.",
+    "hint3": "The oldest city in the country, served as the first Spanish capital of the islands."
+  },
+  {
+    "id": 107,
+    "name": "Bangalore",
+    "coords": [
+      12.9716,
+      77.5946
+    ],
+    "continent": "Asia",
+    "hint1": "Known for the sprawling Lalbagh Botanical Gardens and the mock-Tudor royal palace.",
+    "hint2": "Situated on the Deccan Plateau in the southern part of India.",
+    "hint3": "Widely nicknamed the 'Silicon Valley of India' due to its massive tech industry and startup culture."
+  },
+  {
+    "id": 108,
+    "name": "Jaipur",
+    "coords": [
+      26.9124,
+      75.7873
+    ],
+    "continent": "Asia",
+    "hint1": "Home to the ornate Hawa Mahal (Palace of Winds) and the hilltop Amber Fort.",
+    "hint2": "The capital of the desert state of Rajasthan in northwestern India.",
+    "hint3": "Known as the 'Pink City' because of the distinct color of its historic buildings, painted to welcome royalty in 1876."
+  },
+  {
+    "id": 109,
+    "name": "Tel Aviv",
+    "coords": [
+      32.0853,
+      34.7818
+    ],
+    "continent": "Asia",
+    "hint1": "Known for its vibrant Mediterranean beaches, active nightlife, and the ancient port of Jaffa.",
+    "hint2": "Located on the Mediterranean coast of Western Asia.",
+    "hint3": "Features the 'White City', containing the world's largest concentration of Bauhaus-style buildings."
+  },
+  {
+    "id": 110,
+    "name": "Amman",
+    "coords": [
+      31.9454,
+      35.9284
+    ],
+    "continent": "Asia",
+    "hint1": "Home to a spectacular, steep-sided Roman Theatre and the historic Citadel ruins atop Jabal al-Qal'a.",
+    "hint2": "Spread across nineteen hills in the northwestern part of the Levant region.",
+    "hint3": "One of the oldest continuously inhabited cities in the world, once known as Philadelphia in ancient times."
+  },
+  {
+    "id": 111,
+    "name": "Baku",
+    "coords": [
+      40.4093,
+      49.8671
+    ],
+    "continent": "Asia",
+    "hint1": "Dominated by the trio of blue LED-covered Flame Towers and the historic Maiden Tower.",
+    "hint2": "A low-lying coastal city situated on the southern shore of the Absheron Peninsula along the Caspian Sea.",
+    "hint3": "The lowest national capital in the world, sitting 28 meters below sea level, famous for its oil-rich history."
+  },
+  {
+    "id": 112,
+    "name": "Tbilisi",
+    "coords": [
+      41.7151,
+      44.8271
+    ],
+    "continent": "Asia",
+    "hint1": "Famous for the Narikala Fortress, traditional sulfur baths in Abanotubani, and wooden balconies overlooking the river.",
+    "hint2": "Situated in the Caucasus region along the banks of the Kura River, surrounded by mountains.",
+    "hint3": "According to legend, it was founded in the 5th century near warm thermal springs, which gave the city its name."
+  },
+  {
+    "id": 113,
+    "name": "Yerevan",
+    "coords": [
+      40.1792,
+      44.5152
+    ],
+    "continent": "Asia",
+    "hint1": "Features the massive limestone Cascade stairway and Republic Square with its musical fountains.",
+    "hint2": "Located along the Hrazdan River, overlooked by the majestic, snow-capped Mount Ararat.",
+    "hint3": "Nicknamed the 'Pink City' because of the widespread use of volcanic tuff stone in its Soviet-era buildings."
+  },
+  {
+    "id": 114,
+    "name": "Beirut",
+    "coords": [
+      33.8938,
+      35.5018
+    ],
+    "continent": "Asia",
+    "hint1": "Famous for the natural offshore Pigeon Rocks and the central Place de l'Étoile.",
+    "hint2": "Situated on a peninsula projecting westward into the Mediterranean Sea.",
+    "hint3": "Often referred to as the 'Paris of the Middle East' due to its French colonial influence and bohemian spirit."
+  },
+  {
+    "id": 115,
+    "name": "Colombo",
+    "coords": [
+      6.9271,
+      79.8612
+    ],
+    "continent": "Asia",
+    "hint1": "Home to the historic Galle Face Green promenade and the Gangaramaya Buddhist Temple.",
+    "hint2": "A major seaport city located on the southwestern coast of a tropical island nation in the Indian Ocean.",
+    "hint3": "Serves as the financial capital of a country famous for Ceylon tea production."
+  },
+  {
+    "id": 116,
+    "name": "Dhaka",
+    "coords": [
+      23.8103,
+      90.4125
+    ],
+    "continent": "Asia",
+    "hint1": "Home to the 17th-century Mughal Lalbagh Fort and the star-themed Tara Masjid.",
+    "hint2": "Located in the Ganges-Brahmaputra delta along the banks of the Buriganga River.",
+    "hint3": "Renowned as the 'City of Mosques' and the global capital of rickshaw transport, with hundreds of thousands active daily."
+  },
+  {
+    "id": 117,
+    "name": "Karachi",
+    "coords": [
+      24.8607,
+      67.0011
+    ],
+    "continent": "Asia",
+    "hint1": "Home to the Clifton Beach promenade and the white marble Mazar-e-Quaid (mausoleum of the nation's founder).",
+    "hint2": "A massive seaport city located on the coast of the Arabian Sea in South Asia.",
+    "hint3": "The financial hub and largest city of its country, known as the 'City of Lights'."
+  },
+  {
+    "id": 118,
+    "name": "Lahore",
+    "coords": [
+      31.5204,
+      74.3587
+    ],
+    "continent": "Asia",
+    "hint1": "Famous for the massive Badshahi Mosque, its historic 16th-century fortress, and the Shalimar Gardens.",
+    "hint2": "Located near the border with India, along the banks of the Ravi River.",
+    "hint3": "The cultural capital of Punjab, famous for its historic Mughal and British-colonial architecture."
+  },
+  {
+    "id": 119,
+    "name": "Chengdu",
+    "coords": [
+      30.5728,
+      104.0668
+    ],
+    "continent": "Asia",
+    "hint1": "Home to the world-famous Giant Panda Breeding Research Base and the ancient Wuhou Shrine.",
+    "hint2": "Situated in a fertile basin in southwestern China.",
+    "hint3": "Renowned as a UNESCO City of Gastronomy, famous for its numbing Sichuan peppercorn dishes and tea house culture."
+  },
+  {
+    "id": 120,
+    "name": "Xi'an",
+    "coords": [
+      34.2658,
+      108.9541
+    ],
+    "continent": "Asia",
+    "hint1": "Famous for the Terracotta Army of Emperor Qin Shi Huang and a massive, intact 14th-century city wall.",
+    "hint2": "Located in central-western China along the Wei River valley.",
+    "hint3": "The ancient starting point of the Silk Road, formerly known as Chang'an, serving as the capital for multiple dynasties."
+  },
+  {
+    "id": 121,
+    "name": "Milan",
+    "coords": [
+      45.4642,
+      9.19
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the spectacular Gothic Duomo cathedral and the Santa Maria delle Gracie church housing 'The Last Supper'.",
+    "hint2": "Located in the fertile Po Valley of northern Italy.",
+    "hint3": "A global capital of fashion and design, also home to the legendary La Scala opera house."
+  },
+  {
+    "id": 122,
+    "name": "Naples",
+    "coords": [
+      40.8518,
+      14.2681
+    ],
+    "continent": "Europe",
+    "hint1": "Overlooked by the active volcano Mount Vesuvius and situated near the ruins of Pompeii.",
+    "hint2": "Located on a beautiful bay along the Tyrrhenian Sea in southern Italy.",
+    "hint3": "Renowned worldwide as the birthplace of pizza, specifically the classic Margherita."
+  },
+  {
+    "id": 123,
+    "name": "Lyon",
+    "coords": [
+      45.764,
+      4.8357
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the Basilica of Notre-Dame de Fourvière and the historic renaissance Old Town.",
+    "hint2": "Located in east-central France, at the confluence of the Rhône and Saône rivers.",
+    "hint3": "Known as the gastronomy capital of its country, famous for traditional restaurants called 'bouchons'."
+  },
+  {
+    "id": 124,
+    "name": "Marseille",
+    "coords": [
+      43.2965,
+      5.3698
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the vibrant Vieux-Port (Old Port) and the hilltop Basilica of Notre-Dame de la Garde.",
+    "hint2": "A historic port city located on the Mediterranean coast of southern France.",
+    "hint3": "Founded by Greek sailors around 600 BC, making it the oldest city in France, famous for bouillabaisse fish stew."
+  },
+  {
+    "id": 125,
+    "name": "Frankfurt",
+    "coords": [
+      50.1109,
+      8.6821
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the Römer medieval building and the birthplace of writer Johann Wolfgang von Goethe.",
+    "hint2": "Located in southwestern Germany, situated along both sides of the Main River.",
+    "hint3": "The financial heart of continental Europe, hosting the European Central Bank and a unique skyline of skyscrapers."
+  },
+  {
+    "id": 126,
+    "name": "Hamburg",
+    "coords": [
+      53.5511,
+      9.9937
+    ],
+    "continent": "Europe",
+    "hint1": "Famous for the brick-built Speicherstadt warehouse district and the modern Elbphilharmonie concert hall.",
+    "hint2": "A major port city in northern Germany connected to the North Sea by the Elbe River.",
+    "hint3": "Contains more bridges than London, Amsterdam, and Venice combined, and features the famous Reeperbahn red-light district."
+  },
+  {
+    "id": 127,
+    "name": "Porto",
+    "coords": [
+      41.1579,
+      -8.6291
+    ],
+    "continent": "Europe",
+    "hint1": "Famous for the double-deck iron Dom Luís I Bridge, Clerigos Church, and the colorful Ribeira riverfront.",
+    "hint2": "Located along the Douro River estuary in northern Portugal.",
+    "hint3": "Renowned globally for the production and aging of Port wine in nearby historic cellars."
+  },
+  {
+    "id": 128,
+    "name": "Valencia",
+    "coords": [
+      39.4699,
+      -0.3763
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the futuristic City of Arts and Sciences complex, designed by Santiago Calatrava.",
+    "hint2": "Situated on the eastern coast of Spain, where the Turia River meets the Mediterranean Sea.",
+    "hint3": "The birthplace of the world-famous rice dish paella, surrounded by a fertile agricultural region."
+  },
+  {
+    "id": 129,
+    "name": "Krakow",
+    "coords": [
+      50.0647,
+      19.945
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the Wawel Castle and the Rynek Główny, one of the largest medieval town squares in Europe.",
+    "hint2": "Located in southern Poland, situated on both sides of the Vistula River.",
+    "hint3": "Served as the royal capital of Poland until 1596, escaping major physical destruction during World War II."
+  },
+  {
+    "id": 130,
+    "name": "Salzburg",
+    "coords": [
+      47.8095,
+      13.055
+    ],
+    "continent": "Europe",
+    "hint1": "Dominated by its massive medieval hilltop fortress and home to the Mirabell Palace gardens.",
+    "hint2": "Situated in the northern Alps on the border with Germany, along the Salzach River.",
+    "hint3": "Famous as the birthplace of Wolfgang Amadeus Mozart and the setting for the classic movie 'The Sound of Music'."
+  },
+  {
+    "id": 131,
+    "name": "Dubrovnik",
+    "coords": [
+      42.6507,
+      18.0944
+    ],
+    "continent": "Europe",
+    "hint1": "Famous for its massive, intact medieval stone walls and the pedestrian-only Stradun street.",
+    "hint2": "Located on the coast of the Adriatic Sea in the southern region of Croatia.",
+    "hint3": "Nicknamed the 'Pearl of the Adriatic', it served as the filming location for King's Landing in Game of Thrones."
+  },
+  {
+    "id": 132,
+    "name": "Split",
+    "coords": [
+      43.5081,
+      16.4402
+    ],
+    "continent": "Europe",
+    "hint1": "Built around the sprawling ruins of the Diocletian's Palace, an ancient Roman imperial residence.",
+    "hint2": "A coastal city on a peninsula in the Dalmatian region of Croatia.",
+    "hint3": "Combines ancient Roman architecture with a vibrant modern seaside promenade known as the Riva."
+  },
+  {
+    "id": 133,
+    "name": "Bergen",
+    "coords": [
+      60.3913,
+      5.3221
+    ],
+    "continent": "Europe",
+    "hint1": "Famous for Bryggen, a historic row of colorful wooden merchant houses along the harbor.",
+    "hint2": "Located on the southwestern coast of Norway, nestled between seven mountains and deep fjords.",
+    "hint3": "Known as the gateway to the Norwegian fjords, it experiences some of the highest rainfall of any city in Europe."
+  },
+  {
+    "id": 134,
+    "name": "Gothenburg",
+    "coords": [
+      57.7089,
+      11.9746
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the Liseberg amusement park and the historic Haga neighborhood with traditional wooden houses.",
+    "hint2": "A major seaport city situated on the Göta älv river on Sweden's west coast.",
+    "hint3": "Founded in 1621 by King Gustavus Adolphus, it is known for its friendly, laid-back atmosphere and seafood."
+  },
+  {
+    "id": 135,
+    "name": "Glasgow",
+    "coords": [
+      55.8642,
+      -4.2518
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the Kelvingrove Art Gallery and Museum, and the distinct architecture of Charles Rennie Mackintosh.",
+    "hint2": "Located in the west-central Lowlands of Scotland, along the River Clyde.",
+    "hint3": "The largest city in Scotland, historically a powerhouse of shipbuilding and marine engineering."
+  },
+  {
+    "id": 136,
+    "name": "Manchester",
+    "coords": [
+      53.4808,
+      -2.2426
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the Science and Industry Museum, the John Rylands Library, and the Old Trafford stadium.",
+    "hint2": "Located in northwest England, surrounded by the Pennine hills to the north and east.",
+    "hint3": "Recognized as the world's first industrialized city, it has a legendary music scene that produced bands like Oasis and The Smiths."
+  },
+  {
+    "id": 137,
+    "name": "Belfast",
+    "coords": [
+      54.5973,
+      -5.9301
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the futuristic, star-shaped Titanic museum, located on the slipways where the ship was built.",
+    "hint2": "Situated on the banks of the River Lagan on the east coast of Northern Ireland.",
+    "hint3": "Historically a major shipbuilding hub, it is the capital city of Northern Ireland."
+  },
+  {
+    "id": 138,
+    "name": "Tallinn",
+    "coords": [
+      59.437,
+      24.7536
+    ],
+    "continent": "Europe",
+    "hint1": "Famous for its stunningly preserved medieval Lower Town, Toompea Hill castle, and old city walls.",
+    "hint2": "A coastal capital located on the southern coast of the Gulf of Finland.",
+    "hint3": "One of Europe's most tech-oriented cities, known as the birthplace of Skype and a leader in digital governance."
+  },
+  {
+    "id": 139,
+    "name": "Riga",
+    "coords": [
+      56.9496,
+      24.1052
+    ],
+    "continent": "Europe",
+    "hint1": "Famous for its historic medieval cathedral and the beautiful House of the Blackheads.",
+    "hint2": "Located at the mouth of the Daugava River on the surrounding gulf.",
+    "hint3": "Boasts the world's finest collection of Art Nouveau architecture, comprising roughly a third of all buildings in its center."
+  },
+  {
+    "id": 140,
+    "name": "Vilnius",
+    "coords": [
+      54.6872,
+      25.2797
+    ],
+    "continent": "Europe",
+    "hint1": "Home to the Gediminas Tower, St. Anne's Gothic Church, and a baroque city center.",
+    "hint2": "Located in southeastern Lithuania, at the confluence of the Vilnia and Neris rivers.",
+    "hint3": "Contains the self-proclaimed independent artists' republic of Užupis, which has its own constitution and president."
+  },
+  {
+    "id": 141,
+    "name": "Philadelphia",
+    "coords": [
+      39.9526,
+      -75.1652
+    ],
+    "continent": "North America",
+    "hint1": "Home to the Liberty Bell, Independence Hall, and the iconic 'Rocky Steps' at the Museum of Art.",
+    "hint2": "A major city in the northeastern United States, located at the confluence of the Delaware and Schuylkill rivers.",
+    "hint3": "The birthplace of the nation's democracy, where both the Declaration of Independence and Constitution were signed."
+  },
+  {
+    "id": 142,
+    "name": "New Orleans",
+    "coords": [
+      29.9511,
+      -90.0715
+    ],
+    "continent": "North America",
+    "hint1": "Famous for the historic French Quarter, Jackson Square, and the lively nightlife of Bourbon Street.",
+    "hint2": "Located in the southern United States along the Mississippi River, near the Gulf of Mexico.",
+    "hint3": "Nicknamed 'The Big Easy', it is renowned for its jazz music heritage, Creole cuisine, and annual Mardi Gras festival."
+  },
+  {
+    "id": 143,
+    "name": "San Diego",
+    "coords": [
+      32.7157,
+      -117.1611
+    ],
+    "continent": "North America",
+    "hint1": "Home to a world-renowned zoo, Balboa Park, and the historic Gaslamp Quarter.",
+    "hint2": "A coastal city in Southern California, situated right next to the border with Mexico.",
+    "hint3": "Famous for its year-round warm, sunny climate, beautiful beaches, and deep-water natural harbor."
+  },
+  {
+    "id": 144,
+    "name": "Denver",
+    "coords": [
+      39.7392,
+      -104.9903
+    ],
+    "continent": "North America",
+    "hint1": "Home to the gold-domed State Capitol and the Red Rocks Amphitheatre carved into natural sandstone hills.",
+    "hint2": "Located in the western United States, situated at the eastern edge of the Rocky Mountains.",
+    "hint3": "Known as the 'Mile High City' because its official elevation is exactly one mile (5,280 feet) above sea level."
+  },
+  {
+    "id": 145,
+    "name": "Austin",
+    "coords": [
+      30.2672,
+      -97.7431
+    ],
+    "continent": "North America",
+    "hint1": "Home to the pink-granite Texas State Capitol and the Congress Avenue Bridge bat colony.",
+    "hint2": "Located in central Texas, situated along the Colorado River.",
+    "hint3": "Known as the 'Live Music Capital of the World' and host to the annual South by Southwest (SXSW) festival."
+  },
+  {
+    "id": 146,
+    "name": "Portland",
+    "coords": [
+      45.5152,
+      -122.6784
+    ],
+    "continent": "North America",
+    "hint1": "Famous for the Washington Park Rose Test Garden and the massive Powell's City of Books store.",
+    "hint2": "Located in the Pacific Northwest region, near the confluence of the Willamette and Columbia rivers.",
+    "hint3": "Renowned for its eco-friendly design, massive coffee culture, food carts, and its famous slogan about keeping the city weird."
+  },
+  {
+    "id": 147,
+    "name": "Anchorage",
+    "coords": [
+      61.2181,
+      -149.9003
+    ],
+    "continent": "North America",
+    "hint1": "Home to the Alaska Native Heritage Center and serves as a major base for glacier and wildlife tours.",
+    "hint2": "A coastal city located at the head of the Cook Inlet in southern Alaska.",
+    "hint3": "The largest city in its state, containing over 40% of the state's total population despite its remote subarctic setting."
+  },
+  {
+    "id": 148,
+    "name": "Quebec City",
+    "coords": [
+      46.8139,
+      -71.2082
+    ],
+    "continent": "North America",
+    "hint1": "Dominated by the historic, castle-like Château Frontenac hotel and the cobblestone streets of Petit Champlain.",
+    "hint2": "Located on the Saint Lawrence River in eastern Canada.",
+    "hint3": "The only fortified city north of Mexico in North America, with its historic stone walls still intact."
+  },
+  {
+    "id": 149,
+    "name": "Ottawa",
+    "coords": [
+      45.4215,
+      -75.6972
+    ],
+    "continent": "North America",
+    "hint1": "Home to the neo-Gothic Parliament Buildings on Parliament Hill and the historic Rideau Canal.",
+    "hint2": "Situated on the south bank of a major river separating Ontario and Quebec.",
+    "hint3": "The capital city of Canada, where the Rideau Canal freezes in winter to become the world's longest ice skating rink."
+  },
+  {
+    "id": 150,
+    "name": "Calgary",
+    "coords": [
+      51.0447,
+      -114.0719
+    ],
+    "continent": "North America",
+    "hint1": "Famous for hosting its world-famous annual rodeo and its central observation tower.",
+    "hint2": "Situated at the confluence of the Bow and Elbow rivers in the western province of Alberta.",
+    "hint3": "Gateway to the Canadian Rockies, it hosted the 1988 Winter Olympics."
+  },
+  {
+    "id": 151,
+    "name": "Guadalajara",
+    "coords": [
+      20.679,
+      -103.3496
+    ],
+    "continent": "North America",
+    "hint1": "Home to its historic cathedral with its yellow spires, and the ornate Teatro Degollado.",
+    "hint2": "Located in the western region of Mexico, situated in a valley.",
+    "hint3": "Widely celebrated as the birthplace of Mariachi music and tequila, and the cultural heart of Jalisco."
+  },
+  {
+    "id": 152,
+    "name": "Monterrey",
+    "coords": [
+      25.6866,
+      -100.3161
+    ],
+    "continent": "North America",
+    "hint1": "Features the massive Macroplaza public square and is dominated by the saddle-shaped Cerro de la Silla mountain.",
+    "hint2": "Located in northeastern Mexico, nestled against the foothills of the Sierra Madre Oriental.",
+    "hint3": "A major industrial and business powerhouse, recognized as one of the most developed cities in the country."
+  },
+  {
+    "id": 153,
+    "name": "Cancun",
+    "coords": [
+      21.1619,
+      -86.8515
+    ],
+    "continent": "North America",
+    "hint1": "Famous for its powdery white beaches, turquoise Caribbean waters, and nearby Mayan ruins like El Rey.",
+    "hint2": "Situated on the northeast coast of the Yucatán Peninsula in Mexico.",
+    "hint3": "Developed in the 1970s as a master-planned resort destination, it is now a global hub for beach tourism."
+  },
+  {
+    "id": 154,
+    "name": "San Jose",
+    "coords": [
+      9.9281,
+      -84.0907
+    ],
+    "continent": "North America",
+    "hint1": "Home to the historic National Theatre and the Gold Museum beneath the Plaza de la Cultura.",
+    "hint2": "Located in the Central Valley region of a Central American country, surrounded by green mountains.",
+    "hint3": "The capital and hub of a country famous for its biodiversity, ecotourism, and 'Pura Vida' philosophy."
+  },
+  {
+    "id": 155,
+    "name": "San Salvador",
+    "coords": [
+      13.6929,
+      -89.2182
+    ],
+    "continent": "North America",
+    "hint1": "Home to the modern El Rosario Church and the National Palace.",
+    "hint2": "Located in a valley at the foot of a large volcano in Central America.",
+    "hint3": "Frequently hit by earthquakes throughout history, giving the surrounding region the nickname 'Valley of Hammocks'."
+  },
+  {
+    "id": 156,
+    "name": "Guatemala City",
+    "coords": [
+      14.6349,
+      -90.5069
+    ],
+    "continent": "North America",
+    "hint1": "Home to the National Palace of Culture, the Metropolitan Cathedral, and the Kaminaljuyu Mayan ruins.",
+    "hint2": "Situated in a mountainous highland valley in the southern part of Central America.",
+    "hint3": "The most populous city in Central America, serving as the political and economic center of its country."
+  },
+  {
+    "id": 157,
+    "name": "Kingston",
+    "coords": [
+      17.9712,
+      -76.7928
+    ],
+    "continent": "North America",
+    "hint1": "Home to the Bob Marley Museum, located in the singer's former residence, and Devon House.",
+    "hint2": "A natural harbor city located on the southeastern coast of a major Caribbean island.",
+    "hint3": "The largest English-speaking city in the Caribbean and the undisputed birthplace of reggae music."
+  },
+  {
+    "id": 158,
+    "name": "Nassau",
+    "coords": [
+      25.048,
+      -77.3554
+    ],
+    "continent": "North America",
+    "hint1": "Home to the historic Queen's Staircase, Fort Fincastle, and the massive Atlantis resort on Paradise Island.",
+    "hint2": "Located on the island of New Providence in a sprawling Atlantic archipelago.",
+    "hint3": "A famous 18th-century pirate republic, now the bustling capital of a tropical island nation."
+  },
+  {
+    "id": 159,
+    "name": "San Juan",
+    "coords": [
+      18.4655,
+      -66.1057
+    ],
+    "continent": "North America",
+    "hint1": "Home to the massive 16th-century Castillo San Felipe del Morro and colorful cobblestone streets.",
+    "hint2": "A coastal city located on the northeastern shore of a US territory in the Caribbean.",
+    "hint3": "Founded by Spanish colonists in 1521, it is the oldest European-established city under US jurisdiction."
+  },
+  {
+    "id": 160,
+    "name": "Santo Domingo",
+    "coords": [
+      18.4861,
+      -69.9312
+    ],
+    "continent": "North America",
+    "hint1": "Home to the Catedral Primada de América and the Alcázar de Colón in the historic Zona Colonial.",
+    "hint2": "A coastal capital located on the southern shores of the island of Hispaniola.",
+    "hint3": "The oldest continuously inhabited European settlement in the Americas, founded by Bartholomew Columbus in 1496."
+  },
+  {
+    "id": 161,
+    "name": "Medellin",
+    "coords": [
+      6.2442,
+      -75.5812
+    ],
+    "continent": "South America",
+    "hint1": "Home to Botero Plaza, featuring giant bronze sculptures, and the innovative Metrocable transport system.",
+    "hint2": "Situated in the narrow Aburrá Valley of the Andes mountains in northwestern South America.",
+    "hint3": "Nicknamed the 'City of Eternal Spring' for its pleasant climate, it hosts a famous annual Flower Festival."
+  },
+  {
+    "id": 162,
+    "name": "Cali",
+    "coords": [
+      3.4516,
+      -76.532
+    ],
+    "continent": "South America",
+    "hint1": "Home to the Cristo Rey monument on the hill and the historic San Antonio neighborhood.",
+    "hint2": "Located in western Colombia, situated in the fertile Cauca River valley.",
+    "hint3": "Widely celebrated as the 'World Capital of Salsa' due to its legendary dance schools, clubs, and street parties."
+  },
+  {
+    "id": 163,
+    "name": "Sao Paulo",
+    "coords": [
+      -23.5505,
+      -46.6333
+    ],
+    "continent": "South America",
+    "hint1": "Home to the futuristic MASP museum suspended on red pillars, and the bustling Avenida Paulista.",
+    "hint2": "Located on a high plateau in southeastern Brazil, bounded by coast ranges.",
+    "hint3": "A massive metropolis with an endless canyon of skyscrapers, it is the most populous city in the Southern Hemisphere."
+  },
+  {
+    "id": 164,
+    "name": "Salvador",
+    "coords": [
+      -12.9714,
+      -38.5014
+    ],
+    "continent": "South America",
+    "hint1": "Famous for the historic Pelourinho district with pastel-colored baroque buildings and the Art Deco Lacerda Elevator.",
+    "hint2": "A coastal city situated on a peninsula between the Atlantic Ocean and All Saints Bay.",
+    "hint3": "The first colonial capital of Brazil, renowned for its Afro-Brazilian culture, samba-reggae music, and capoeira."
+  },
+  {
+    "id": 165,
+    "name": "Brasilia",
+    "coords": [
+      -15.7975,
+      -47.8919
+    ],
+    "continent": "South America",
+    "hint1": "Features the futuristic Cathedral of Brasília and the Congress buildings designed by Oscar Niemeyer.",
+    "hint2": "Located on a high plateau in the central highlands of Brazil, surrounded by savanna.",
+    "hint3": "A planned federal city founded in 1960, famous for its layout resembling a giant airplane or bird from above."
+  },
+  {
+    "id": 166,
+    "name": "Florianopolis",
+    "coords": [
+      -27.5954,
+      -48.548
+    ],
+    "continent": "South America",
+    "hint1": "Famous for the historic Hercílio Luz suspension bridge and the beautiful Conceição Lagoon.",
+    "hint2": "Located in southern Brazil, with the vast majority of its territory situated on a scenic Atlantic island.",
+    "hint3": "Renowned for its quality of life, oysters, and over 40 pristine beaches attracting surfers worldwide."
+  },
+  {
+    "id": 167,
+    "name": "Mendoza",
+    "coords": [
+      -32.8895,
+      -68.8458
+    ],
+    "continent": "South America",
+    "hint1": "Features the sprawling San Martín Park and serves as a major base for mountaineers.",
+    "hint2": "Located on a high-altitude plain near the foothills of the Andes in western Argentina.",
+    "hint3": "The heart of the country's wine industry, famous worldwide for Malbec grape production."
+  },
+  {
+    "id": 168,
+    "name": "Bariloche",
+    "coords": [
+      -41.1335,
+      -71.3103
+    ],
+    "continent": "South America",
+    "hint1": "Famous for its Swiss-style log-and-stone architecture, chocolate shops, and Mount Catedral ski slopes.",
+    "hint2": "Situated on the shores of the Nahuel Huapi Lake in northern Patagonia.",
+    "hint3": "A premier winter resort town in the Andes, sometimes referred to by its full hyphenated name."
+  },
+  {
+    "id": 169,
+    "name": "Valparaiso",
+    "coords": [
+      -33.0472,
+      -71.6127
+    ],
+    "continent": "South America",
+    "hint1": "Famous for its colorful hills covered in street art, accessed by historic funicular elevators.",
+    "hint2": "A historic port city located on a bay of the Pacific coast in central Chile.",
+    "hint3": "Known as the 'Jewel of the Pacific', it was home to Nobel laureate poet Pablo Neruda."
+  },
+  {
+    "id": 170,
+    "name": "Guayaquil",
+    "coords": [
+      -2.1894,
+      -79.889
+    ],
+    "continent": "South America",
+    "hint1": "Features the Malecón 2000 boardwalk, the colorful Las Peñas neighborhood, and a park full of free-roaming iguanas.",
+    "hint2": "Located on the western bank of the Guayas River, near the surrounding gulf.",
+    "hint3": "The largest city and primary commercial port of its country, serving as the main gateway to the Galápagos Islands."
+  },
+  {
+    "id": 171,
+    "name": "Arequipa",
+    "coords": [
+      -16.409,
+      -71.5375
+    ],
+    "continent": "South America",
+    "hint1": "Home to the Santa Catalina Monastery and the historic Plaza de Armas built from white volcanic rock.",
+    "hint2": "Situated in the Andes at over 7,500 feet, dominated by the symmetrical, snow-capped Misti volcano.",
+    "hint3": "Nicknamed the 'White City' because of the widespread use of sillar, a white volcanic stone, in its architecture."
+  },
+  {
+    "id": 172,
+    "name": "Asuncion",
+    "coords": [
+      -25.2637,
+      -57.5759
+    ],
+    "continent": "South America",
+    "hint1": "Home to the Lopez Palace (presidential seat) and the Pantheon of Heroes.",
+    "hint2": "Located on the left bank of a major river separating its country from Argentina.",
+    "hint3": "One of the oldest cities in South America, known as the 'Mother of Cities' because it was the base for many colonial expeditions."
+  },
+  {
+    "id": 173,
+    "name": "Montevideo",
+    "coords": [
+      -34.9011,
+      -56.1645
+    ],
+    "continent": "South America",
+    "hint1": "Home to the Palacio Salvo, the historic Solís Theatre, and the long beachfront promenade called the Rambla.",
+    "hint2": "A coastal capital located on the northern shore of the Río de la Plata estuary.",
+    "hint3": "Consistently ranked as having the highest quality of life of any city in Latin America."
+  },
+  {
+    "id": 174,
+    "name": "Caracas",
+    "coords": [
+      10.4806,
+      -66.9036
+    ],
+    "continent": "South America",
+    "hint1": "Home to the historic Plaza Bolívar, the birth home of Simón Bolívar, and the Teresa Carreño Cultural Complex.",
+    "hint2": "Nestled in a valley in northern South America, separated from the Caribbean Sea by the steep Avila mountain.",
+    "hint3": "Located in a valley roughly 3,000 feet high, serving as the federal capital of its country."
+  },
+  {
+    "id": 175,
+    "name": "Paramaribo",
+    "coords": [
+      5.852,
+      -55.2038
+    ],
+    "continent": "South America",
+    "hint1": "Famous for Fort Zeelandia, Presidential Palace, and its historic black-and-white wooden Dutch-colonial architecture.",
+    "hint2": "Located on the banks of the Suriname River, close to the Atlantic coast in northern South America.",
+    "hint3": "The capital of the smallest independent country in South America, where Dutch is the official language."
+  },
+  {
+    "id": 176,
+    "name": "Alexandria",
+    "coords": [
+      31.2001,
+      29.9187
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the Citadel of Qaitbay (built on the ruins of a famous lighthouse) and the modern Bibliotheca Alexandrina.",
+    "hint2": "A major seaport city situated on the Mediterranean coast of northern Africa.",
+    "hint3": "Founded in 331 BC by Alexander the Great, it was home to the ancient Great Library and the Pharos Lighthouse."
+  },
+  {
+    "id": 177,
+    "name": "Giza",
+    "coords": [
+      30.0131,
+      31.2089
+    ],
+    "continent": "Africa",
+    "hint1": "Famous for the three iconic pyramids of Khufu, Khafre, and Menkaure, and the giant Sphinx.",
+    "hint2": "Located on the west bank of the Nile River, directly opposite the capital city of Egypt.",
+    "hint3": "Part of the Greater Cairo metropolis, home to the newly built Grand Egyptian Museum."
+  },
+  {
+    "id": 178,
+    "name": "Fes",
+    "coords": [
+      34.0181,
+      -5.0078
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the Al-Qarawiyyin University (world's oldest continuously operating university) and the Chouara Tannery.",
+    "hint2": "Located in northern Morocco, situated in a valley between the Rif and Middle Atlas mountains.",
+    "hint3": "Features a massive, maze-like 8th-century medina of the ancient city, widely considered the largest car-free urban area in the world."
+  },
+  {
+    "id": 179,
+    "name": "Chefchaouen",
+    "coords": [
+      35.1688,
+      -5.2636
+    ],
+    "continent": "Africa",
+    "hint1": "Famous for its striking, photogenic buildings and streets painted in shades of powder blue.",
+    "hint2": "Nestled in the rugged Rif Mountains of northwestern Morocco.",
+    "hint3": "Founded in 1471 as a fortress to fight Portuguese invasions, now a world-renowned destination for its blue architecture."
+  },
+  {
+    "id": 180,
+    "name": "Algiers",
+    "coords": [
+      36.7538,
+      3.0588
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the Martyr's Memorial monument and the historic, hillside Casbah district.",
+    "hint2": "Located on a bay of the Mediterranean Sea in North Africa.",
+    "hint3": "Known by a nickname meaning 'the White' due to the gleaming white buildings rising up from the sea."
+  },
+  {
+    "id": 181,
+    "name": "Accra",
+    "coords": [
+      5.6037,
+      -0.187
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the Kwame Nkrumah Memorial Park, the bustling Makola Market, and Jamestown lighthouse.",
+    "hint2": "A coastal capital located on the Gulf of Guinea along the Atlantic Ocean.",
+    "hint3": "The capital of the first sub-Saharan African nation to gain independence from colonial rule."
+  },
+  {
+    "id": 182,
+    "name": "Saint-Louis (Senegal)",
+    "coords": [
+      16.0244,
+      -16.5015
+    ],
+    "continent": "Africa",
+    "hint1": "Famous for the historic double-arched Faidherbe Bridge designed by Gustave Eiffel.",
+    "hint2": "Located in northern Senegal, situated on a narrow island in the Senegal River.",
+    "hint3": "Served as the first capital of French West Africa, famous today for its colonial architecture and annual jazz festival."
+  },
+  {
+    "id": 183,
+    "name": "Abidjan",
+    "coords": [
+      5.36,
+      -4.0083
+    ],
+    "continent": "Africa",
+    "hint1": "Features the modern St. Paul's Cathedral and the skyscrapers of the Plateau business district.",
+    "hint2": "Situated on the Ebrié Lagoon along the Gulf of Guinea coast.",
+    "hint3": "The economic powerhouse of Côte d'Ivoire, often called the 'Manhattan of West Africa' due to its skyline."
+  },
+  {
+    "id": 184,
+    "name": "Luanda",
+    "coords": [
+      -8.839,
+      13.2894
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the historic Fortaleza de São Miguel and the modern seaside promenade.",
+    "hint2": "A major seaport city located on the Atlantic coast of southwestern Africa.",
+    "hint3": "The capital of Angola, which has undergone a massive construction boom fueled by oil wealth."
+  },
+  {
+    "id": 185,
+    "name": "Dar es Salaam",
+    "coords": [
+      -6.7924,
+      39.2083
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the National Museum of Tanzania, the Coco Beach waterfront, and the busy Kivukoni Fish Market.",
+    "hint2": "A major harbor city situated on a natural bay of the Indian Ocean in East Africa.",
+    "hint3": "Translates to 'Haven of Peace', it is the largest city and primary commercial center of its country."
+  },
+  {
+    "id": 186,
+    "name": "Antananarivo",
+    "coords": [
+      -18.8792,
+      47.5079
+    ],
+    "continent": "Africa",
+    "hint1": "Features the historic Rova royal palace complex overlooking the city from its highest hill.",
+    "hint2": "Located in the central highlands of a massive island nation in the Indian Ocean, sitting at 4,200 feet.",
+    "hint3": "Originally founded in the 17th century, its name translates to 'The City of the Thousand'."
+  },
+  {
+    "id": 187,
+    "name": "Kampala",
+    "coords": [
+      0.3476,
+      32.5825
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the historic Kasubi Tombs, the massive Uganda National Mosque, and the Bahai Temple.",
+    "hint2": "Located in East Africa, situated just a few miles north of Lake Victoria.",
+    "hint3": "Historically built on seven hills, it is the bustling capital of Uganda."
+  },
+  {
+    "id": 188,
+    "name": "Kigali",
+    "coords": [
+      -1.9403,
+      30.0588
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the national memorial museum, the convention center dome, and the Kimironko Market.",
+    "hint2": "Located in the geographic center of a landlocked East African country, spread across hills and valleys.",
+    "hint3": "The capital of Rwanda, widely recognized as one of the cleanest, greenest, and safest cities in Africa."
+  },
+  {
+    "id": 189,
+    "name": "Maputo",
+    "coords": [
+      -25.9692,
+      32.5732
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the ornate central railway station designed by Eiffel, and the Independence Square city hall.",
+    "hint2": "A coastal capital located on a large natural bay of the Indian Ocean in southern Africa.",
+    "hint3": "Renowned for its Portuguese colonial architecture, wide avenues lined with jacaranda trees, and seafood."
+  },
+  {
+    "id": 190,
+    "name": "Windhoek",
+    "coords": [
+      -22.5609,
+      17.0658
+    ],
+    "continent": "Africa",
+    "hint1": "Home to the historic Christuskirche (Christ Church) and the Alte Feste (Old Fortress) museum.",
+    "hint2": "Situated on a semi-arid plateau in the central highlands of southwestern Africa.",
+    "hint3": "The capital and largest city of Namibia, featuring distinct German colonial influences and architecture."
+  },
+  {
+    "id": 191,
+    "name": "Melbourne",
+    "coords": [
+      -37.8136,
+      144.9631
+    ],
+    "continent": "Oceania",
+    "hint1": "Famous for its labyrinth of historic graffiti-art laneways, Flinders Street Station, and tram network.",
+    "hint2": "Located in southeastern Australia, situated on the large natural bay of Port Phillip.",
+    "hint3": "Known as the nation's cultural and coffee capital, consistently ranked among the world's most livable cities."
+  },
+  {
+    "id": 192,
+    "name": "Brisbane",
+    "coords": [
+      -27.4698,
+      153.0251
+    ],
+    "continent": "Oceania",
+    "hint1": "Home to the South Bank Parklands (man-made beach) and the historic Story Bridge.",
+    "hint2": "Located in eastern Australia, situated along a winding river near the Gold Coast.",
+    "hint3": "The capital of Queensland, known for its sunny climate, outdoor lifestyle, and upcoming 2032 Summer Olympics."
+  },
+  {
+    "id": 193,
+    "name": "Perth",
+    "coords": [
+      -31.9505,
+      115.8605
+    ],
+    "continent": "Oceania",
+    "hint1": "Home to the massive Kings Park botanical garden and close to the sandy beaches of Cottesloe.",
+    "hint2": "Located in southwestern Australia, situated where the Swan River meets the Indian Ocean.",
+    "hint3": "The most isolated metropolitan area in the world, separated by thousands of kilometers of desert from other major cities."
+  },
+  {
+    "id": 194,
+    "name": "Adelaide",
+    "coords": [
+      -34.9285,
+      138.6007
+    ],
+    "continent": "Oceania",
+    "hint1": "Designed in a grid system surrounded completely by parklands, featuring its world-famous oval sports stadium.",
+    "hint2": "A coastal city in southern Australia, situated between the Mount Lofty Ranges and the Gulf St Vincent.",
+    "hint3": "Nicknamed the 'City of Churches' and famous as a gateway to major wine regions like the Barossa Valley."
+  },
+  {
+    "id": 195,
+    "name": "Hobart",
+    "coords": [
+      -42.8821,
+      147.3272
+    ],
+    "continent": "Oceania",
+    "hint1": "Home to the historic Salamanca Market, the avant-garde MONA museum, and nestled beneath Mount Wellington.",
+    "hint2": "Located in southeastern Australia, situated at the mouth of the Derwent River on an island.",
+    "hint3": "The second-oldest city in Australia, serving as the capital of the island state of Tasmania."
+  },
+  {
+    "id": 196,
+    "name": "Queenstown",
+    "coords": [
+      -45.0312,
+      168.6626
+    ],
+    "continent": "Oceania",
+    "hint1": "Famous as the birthplace of commercial bungy jumping and a premier destination for jet boating and skiing.",
+    "hint2": "Nestled on the shores of the S-shaped Lake Wakatipu, surrounded by the dramatic Remarkables mountain range.",
+    "hint3": "Widely recognized as the adventure tourism capital of the world, located in the southwestern South Island of New Zealand."
+  },
+  {
+    "id": 197,
+    "name": "Christchurch",
+    "coords": [
+      -43.5321,
+      172.6362
+    ],
+    "continent": "Oceania",
+    "hint1": "Home to its sprawling central botanic gardens, the Avon River, and the Transitional Cardboard Cathedral.",
+    "hint2": "Located on the east coast of the South Island of New Zealand, just north of Banks Peninsula.",
+    "hint3": "Known as the 'Garden City', it has undergone a major, creative rebuild following devastating earthquakes in 2010 and 2011."
+  },
+  {
+    "id": 198,
+    "name": "Suva",
+    "coords": [
+      -18.1248,
+      178.4501
+    ],
+    "continent": "Oceania",
+    "hint1": "Home to the Fiji Museum inside the Thurston Gardens, and the grand Albert Park.",
+    "hint2": "A major port city located on a hilly peninsula in the southeastern corner of the island of Viti Levu.",
+    "hint3": "The capital of Fiji and a major political and economic hub for the South Pacific island nations."
+  },
+  {
+    "id": 199,
+    "name": "Port Moresby",
+    "coords": [
+      -9.4438,
+      147.1803
+    ],
+    "continent": "Oceania",
+    "hint1": "Home to the National Parliament House, its central nature park, and the nearby Varirata National Park.",
+    "hint2": "Situated on the southeastern coast of the island of New Guinea, along the Gulf of Papua.",
+    "hint3": "The capital city of a country known for having over 800 distinct languages."
+  },
+  {
+    "id": 200,
+    "name": "Apia",
+    "coords": [
+      -13.8333,
+      -171.7667
+    ],
+    "continent": "Oceania",
+    "hint1": "Home to the Robert Louis Stevenson Museum at Vailima, where the famous author spent his final years.",
+    "hint2": "A coastal city located on the northern coast of Upolu Island in the South Pacific.",
+    "hint3": "The capital and only city of Samoa, a historic trading hub of Polynesia."
   }
 ];
