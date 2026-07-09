@@ -9,6 +9,7 @@ let totalRounds = 5;
 let score = 0;
 let activeLocations = [];
 let currentTarget = null;
+let currentRawLocation = null;
 let currentAttempt = 5;
 let elapsedTime = 0;
 let roundTimer = null;
@@ -34,6 +35,10 @@ const gameplayArena = document.getElementById('gameplay-arena');
 const gameOverScreen = document.getElementById('game-over');
 const summaryOverlay = document.getElementById('summary-overlay');
 const scoresModal = document.getElementById('scores-modal');
+const summaryImages = document.getElementById('summary-images');
+const imageLightbox = document.getElementById('image-lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const btnCloseLightbox = document.getElementById('btn-close-lightbox');
 
 const btnStart = document.getElementById('btn-start');
 const btnShowScores = document.getElementById('btn-show-scores');
@@ -128,6 +133,12 @@ async function reloadRoundTranslations() {
     }
   }
 
+  const hint4Row = document.getElementById('hint-4');
+  if (hint4Row && !hint4Row.classList.contains('locked')) {
+    const textValEl = hint4Row.querySelector('.text-val');
+    if (textValEl) textValEl.textContent = t('hint_4_text', currentLanguage);
+  }
+
   // Update guess instruction text
   if (guessLatLng) {
     const prefixStr = t('guess_placed_prefix', currentLanguage);
@@ -202,6 +213,18 @@ document.addEventListener('DOMContentLoaded', () => {
   btnMute.addEventListener('click', toggleMute);
   btnAbort.addEventListener('click', abortGame);
   btnSubmitHighscore.addEventListener('click', submitHighScore);
+
+  // Lightbox Close triggers
+  if (btnCloseLightbox) {
+    btnCloseLightbox.addEventListener('click', closeLightbox);
+  }
+  if (imageLightbox) {
+    imageLightbox.addEventListener('click', (e) => {
+      if (e.target === imageLightbox) {
+        closeLightbox();
+      }
+    });
+  }
 
   // Audio hovers
   document.querySelectorAll('button, select, input').forEach(el => {
@@ -387,6 +410,7 @@ async function loadRound() {
 
   // Set current target city (async translation)
   const rawTarget = activeLocations[currentRoundIndex];
+  currentRawLocation = rawTarget;
   currentTarget = await getTranslatedTarget(rawTarget, currentLanguage);
   window.currentTarget = currentTarget;
   window.map = map;
@@ -418,29 +442,41 @@ function tickTimer() {
   updateSpeedMultiplierUI();
 
   // Progress Bar for hints
-  // Hints unlock at: 0s (Hint 1 - Immediate), 15s (Hint 2), 30s (Hint 3), 45s (Hint 4)
-  if (elapsedTime <= 45) {
-    const segmentTime = elapsedTime % 15;
-    const progress = (segmentTime / 15) * 100;
+  // Hints unlock at: 0s (Hint 1 - Immediate), 10s (Hint 2), 20s (Hint 3), 30s (Hint 4)
+  if (elapsedTime <= 30) {
+    const segmentTime = elapsedTime % 10;
+    const progress = (segmentTime / 10) * 100;
     // If exact milestone, fill progress to 100% momentarily
-    hintProgressBar.style.width = (elapsedTime > 0 && elapsedTime % 15 === 0) ? '100%' : `${progress}%`;
+    hintProgressBar.style.width = (elapsedTime > 0 && elapsedTime % 10 === 0) ? '100%' : `${progress}%`;
   } else {
     hintProgressBar.style.width = '100%';
   }
 
   // Trigger Hint unlocks
-  if (elapsedTime === 15) {
+  if (elapsedTime === 10) {
     unlockHint(2);
-  } else if (elapsedTime === 30) {
+  } else if (elapsedTime === 20) {
     unlockHint(3);
-  } else if (elapsedTime === 45) {
+  } else if (elapsedTime === 30) {
     unlockHint(4);
   }
 }
 
+function getSpeedMultiplier(time) {
+  if (time <= 30) {
+    // Start from x5 multiplier, move to x2 over 30s (decays by 0.1 per second)
+    return 5.0 - time * 0.1;
+  } else if (time <= 40) {
+    // At hot cursor mode (starts at 30s), have x2 multiplier still for the first 10s (up to 40s)
+    return 2.0;
+  } else {
+    // Gradually lowers to x1 if taken more than 10s in hot cursor mode (decays by 0.1 per second, min 1.0)
+    return Math.max(1.0, 2.0 - (time - 40) * 0.1);
+  }
+}
+
 function updateSpeedMultiplierUI() {
-  // Starts at x2.00, decays by 0.015 per second, minimum x1.00
-  const mult = Math.max(1.0, 2.0 - elapsedTime * 0.015);
+  const mult = getSpeedMultiplier(elapsedTime);
   hudMultVal.textContent = `x${mult.toFixed(2)}`;
 }
 
@@ -486,6 +522,11 @@ function unlockHint(number, silent = false) {
   } else if (number === 3) {
     hintRow.querySelector('.text-val').textContent = currentTarget.hint3;
   } else if (number === 4) {
+    // Set Hint 4 text
+    const textValEl = hintRow.querySelector('.text-val');
+    if (textValEl) {
+      textValEl.textContent = t('hint_4_text', currentLanguage);
+    }
     // Enable Thermal Cursor
     hint4Unlocked = true;
     document.getElementById('map').classList.add('map-thermal-active');
@@ -647,7 +688,7 @@ function successRound(distanceKm) {
 
   // 2. Speed Score (up to 1000 pts base, decaying by 10 pts per second, multiplied)
   const baseSpeedScore = Math.max(0, 1000 - elapsedTime * 10);
-  const mult = Math.max(1.0, 2.0 - elapsedTime * 0.015);
+  const mult = getSpeedMultiplier(elapsedTime);
   const speedScore = Math.round(baseSpeedScore * mult);
 
   const roundTotal = accScore + speedScore;
@@ -761,8 +802,109 @@ function showRoundSummaryModal(distanceKm, accScore, speedScore, roundTotal, isS
     nextBtnText.textContent = t('next_location', currentLanguage);
   }
 
+  // Load and show location images dynamically
+  const imagesContainer = document.querySelector('.summary-images-container');
+  if (imagesContainer && summaryImages) {
+    imagesContainer.style.display = 'flex';
+    summaryImages.innerHTML = '';
+    
+    // Create 3 skeletons initially
+    for (let i = 0; i < 3; i++) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'summary-image-wrapper';
+      const skeleton = document.createElement('div');
+      skeleton.className = 'image-skeleton';
+      wrapper.appendChild(skeleton);
+      summaryImages.appendChild(wrapper);
+    }
+    
+    const englishName = currentRawLocation ? currentRawLocation.name : currentTarget.name;
+    fetchLocationImages(englishName).then(urls => {
+      if (!urls || urls.length === 0) {
+        imagesContainer.style.display = 'none';
+        return;
+      }
+      summaryImages.innerHTML = '';
+      urls.forEach(url => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'summary-image-wrapper';
+        wrapper.addEventListener('mouseenter', () => {
+          if (synth && synth.playHover) synth.playHover();
+        });
+        wrapper.addEventListener('click', () => openLightbox(url));
+
+        const skeleton = document.createElement('div');
+        skeleton.className = 'image-skeleton';
+        wrapper.appendChild(skeleton);
+
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = englishName;
+        img.onload = () => {
+          img.classList.add('loaded');
+          skeleton.remove();
+        };
+        img.onerror = () => {
+          skeleton.remove();
+        };
+
+        wrapper.appendChild(img);
+        summaryImages.appendChild(wrapper);
+      });
+    });
+  }
+
   // Open modal overlay
   summaryOverlay.classList.remove('hidden');
+}
+
+async function fetchLocationImages(locationName) {
+  const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(locationName)}&gsrnamespace=6&prop=imageinfo&iiprop=url&gsrlimit=30&format=json&origin=*`;
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'GeoClashGame/1.0 (https://github.com/Almantask/location-finder-game-hot; contact@example.com)'
+      }
+    });
+    if (!res.ok) throw new Error('Network response was not ok');
+    const data = await res.json();
+    if (!data.query || !data.query.pages) {
+      return [];
+    }
+    const pages = Object.values(data.query.pages);
+    const images = [];
+    const excludeKeywords = ['map', 'flag', 'coat of arms', 'wappen', 'carte', 'location', 'svg', 'logo', 'icon', 'diagram', 'plan', 'population', 'districts', 'locator', 'seal', 'coa', 'shield'];
+    for (const page of pages) {
+      if (page.imageinfo && page.imageinfo[0]) {
+        const imgUrl = page.imageinfo[0].url;
+        const title = page.title.toLowerCase();
+        
+        const ext = imgUrl.split('.').pop().toLowerCase();
+        if (['jpg', 'jpeg', 'png', 'webp'].includes(ext)) {
+          const hasExclude = excludeKeywords.some(keyword => title.includes(keyword));
+          if (!hasExclude) {
+            images.push(imgUrl);
+          }
+        }
+      }
+    }
+    return images.slice(0, 3);
+  } catch (err) {
+    console.error(`Error fetching images for ${locationName}:`, err);
+    return [];
+  }
+}
+
+function openLightbox(imgUrl) {
+  if (synth && synth.playConfirm) synth.playConfirm();
+  if (lightboxImg) lightboxImg.src = imgUrl;
+  if (imageLightbox) imageLightbox.classList.remove('hidden');
+}
+
+function closeLightbox() {
+  if (synth && synth.playConfirm) synth.playConfirm();
+  if (imageLightbox) imageLightbox.classList.add('hidden');
+  if (lightboxImg) lightboxImg.src = '';
 }
 
 function nextRound() {

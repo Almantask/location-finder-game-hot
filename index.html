@@ -48,12 +48,12 @@
             <li data-i18n="rule_1">You will be given a target city to locate on a <strong>blind map</strong> (its name is hidden at first!).</li>
             <li data-i18n="rule_2">Click the map to place your guess marker, then click <strong>Confirm Guess</strong>.</li>
             <li data-i18n="rule_3">You have <strong>5 attempts</strong> per location. Correct guess range is <strong>1000 km</strong>.</li>
-            <li><span data-i18n="rule_4">Every <strong>15 seconds</strong>, a new hint unlocks (first hint is available immediately):</span>
+            <li><span data-i18n="rule_4">Every <strong>10 seconds</strong>, a new hint unlocks (first hint is available immediately):</span>
               <ol>
                 <li data-i18n="rule_4_1">Landmarks & Culture Clue (At Start)</li>
-                <li data-i18n="rule_4_2">Geography & Nature Clue (At 15s)</li>
-                <li data-i18n="rule_4_3">History & Trivia Clue (At 30s)</li>
-                <li data-i18n="rule_4_4"><strong>Thermal Mouse Pointer</strong> (At 45s)</li>
+                <li data-i18n="rule_4_2">Geography & Nature Clue (At 10s)</li>
+                <li data-i18n="rule_4_3">History & Trivia Clue (At 20s)</li>
+                <li data-i18n="rule_4_4"><strong>Thermal Mouse Pointer</strong> (At 30s)</li>
               </ol>
             </li>
             <li data-i18n="rule_5">Score depends on distance accuracy and response speed. Good luck!</li>
@@ -142,7 +142,7 @@
 
           <div class="hud-item speed-multiplier">
             <span class="hud-label" data-i18n="hud_multiplier">MULTIPLIER</span>
-            <span id="hud-mult-val" class="hud-value font-numeric accent-text text-glow-red">x2.00</span>
+            <span id="hud-mult-val" class="hud-value font-numeric accent-text text-glow-red">x5.00</span>
           </div>
 
           <div class="hud-item total-score">
@@ -202,7 +202,7 @@
                   <span class="hint-number" data-i18n="hint_2_title">HINT 2</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time" data-i18n="hint_2_sub">At 15s: Geography & Nature</span>
+                  <span class="hint-time" data-i18n="hint_2_sub">At 10s: Geography & Nature</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -215,7 +215,7 @@
                   <span class="hint-number" data-i18n="hint_3_title">HINT 3</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time" data-i18n="hint_3_sub">At 30s: History & Trivia</span>
+                  <span class="hint-time" data-i18n="hint_3_sub">At 20s: History & Trivia</span>
                   <p class="hint-text text-val"></p>
                 </div>
               </div>
@@ -228,7 +228,7 @@
                   <span class="hint-number" data-i18n="hint_4_title">HINT 4</span>
                 </div>
                 <div class="hint-content">
-                  <span class="hint-time" data-i18n="hint_4_sub">At 45s: Thermal Cursor</span>
+                  <span class="hint-time" data-i18n="hint_4_sub">At 30s: Thermal Cursor</span>
                   <p class="hint-text text-val" data-i18n="hint_4_text">Thermal heat tracking active. Move mouse to track proximity.</p>
                 </div>
               </div>
@@ -290,6 +290,14 @@
             <div class="points-row total-row">
               <span class="points-label" data-i18n="total_round_pts">Total Round Points</span>
               <span id="summary-score-total" class="points-value font-numeric accent-text">+1,180</span>
+            </div>
+          </div>
+
+          <!-- Location Gallery Section -->
+          <div class="summary-images-container">
+            <h4 class="images-section-title" data-i18n="location_gallery">Location Gallery</h4>
+            <div id="summary-images" class="summary-images">
+              <!-- Dynamically populated images with skeletons -->
             </div>
           </div>
 
@@ -358,6 +366,14 @@
             <i data-lucide="home"></i> <span data-i18n="main_menu">Main Menu</span>
           </button>
         </div>
+      </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox" class="modal-overlay hidden">
+      <div class="lightbox-content animate-scale-in">
+        <button id="btn-close-lightbox" class="btn-close lightbox-close" title="Close"><i data-lucide="x"></i></button>
+        <img id="lightbox-img" src="" alt="Maximized view">
       </div>
     </div>
 
