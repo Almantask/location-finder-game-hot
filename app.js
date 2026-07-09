@@ -546,7 +546,7 @@ function unlockHint(number, silent = false) {
       if (isRoundActive && window.innerWidth <= 768) {
         hintsListCard.classList.add('collapsed');
       }
-    }, 3500);
+    }, 5000);
   }
 }
 
