@@ -9,7 +9,7 @@ let totalRounds = 5;
 let score = 0;
 let activeLocations = [];
 let currentTarget = null;
-let currentAttempt = 3;
+let currentAttempt = 5;
 let elapsedTime = 0;
 let roundTimer = null;
 let guessLatLng = null;
@@ -61,6 +61,10 @@ const thermalCursor = document.getElementById('thermal-cursor');
 const leaderboardBody = document.getElementById('leaderboard-body');
 const noScoresMsg = document.getElementById('no-scores-msg');
 const playerNameInput = document.getElementById('player-name-input');
+
+const hintsHeaderBtn = document.getElementById('hints-header-btn');
+const hintsListCard = document.querySelector('.hints-list-card');
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 /* ----------------------------------------------------
    I18N DOM HELPERS
@@ -145,6 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Language Switcher UI
   updateLanguageUI();
 
+  if (isTouchDevice && thermalCursor) {
+    thermalCursor.classList.add('touch-device');
+  }
+
   // Attach Language Switcher Button Event Listeners
   document.getElementById('lang-btn-en').addEventListener('click', () => {
     if (currentLanguage === 'en') return;
@@ -200,30 +208,61 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('mouseenter', () => synth.playHover());
   });
 
+  // Toggle intelligence brief panel
+  if (hintsHeaderBtn) {
+    hintsHeaderBtn.addEventListener('click', toggleHintsPanel);
+  }
+
   // Track global mouse coordinates for custom cursor
   window.addEventListener('mousemove', (e) => {
-    if (hint4Unlocked && isRoundActive) {
+    if (hint4Unlocked && isRoundActive && !isTouchDevice) {
       thermalCursor.style.left = e.clientX + 'px';
       thermalCursor.style.top = e.clientY + 'px';
     }
   });
 });
 
+function toggleHintsPanel() {
+  synth.playConfirm();
+  if (hintsListCard) {
+    hintsListCard.classList.toggle('collapsed');
+  }
+}
+
 function transitionToScreen(screenId) {
   startMenu.classList.add('hidden');
+  startMenu.classList.remove('active-state');
   gameplayArena.classList.add('hidden');
+  gameplayArena.classList.remove('active-state');
   gameOverScreen.classList.add('hidden');
+  gameOverScreen.classList.remove('active-state');
   summaryOverlay.classList.add('hidden');
+
+  // Hide thermal cursor and reset map cursor state when leaving gameplay-arena
+  if (screenId !== 'gameplay-arena') {
+    if (thermalCursor) {
+      thermalCursor.classList.add('hidden');
+    }
+    const mapEl = document.getElementById('map');
+    if (mapEl) {
+      mapEl.classList.remove('map-thermal-active');
+    }
+  }
+
+  const langSwitcher = document.querySelector('.language-switcher');
 
   if (screenId === 'start-menu') {
     startMenu.classList.remove('hidden');
     startMenu.classList.add('active-state');
+    if (langSwitcher) langSwitcher.classList.remove('hidden');
   } else if (screenId === 'gameplay-arena') {
     gameplayArena.classList.remove('hidden');
     gameplayArena.classList.add('active-state');
+    if (langSwitcher) langSwitcher.classList.add('hidden');
   } else if (screenId === 'game-over') {
     gameOverScreen.classList.remove('hidden');
     gameOverScreen.classList.add('active-state');
+    if (langSwitcher) langSwitcher.classList.remove('hidden');
   }
 }
 
@@ -282,12 +321,21 @@ function initMap() {
 
   // Map mousemove handler for thermal tracking
   map.on('mousemove', onMapMouseMove);
+
+  // Map move handler for thermal tracking on touch devices
+  if (isTouchDevice) {
+    map.on('move', () => {
+      if (hint4Unlocked && isRoundActive) {
+        updateThermalProximity(map.getCenter());
+      }
+    });
+  }
 }
 
 async function loadRound() {
   isRoundActive = true;
   elapsedTime = 0;
-  currentAttempt = 3;
+  currentAttempt = 5;
   guessLatLng = null;
   hint4Unlocked = false;
 
@@ -320,6 +368,15 @@ async function loadRound() {
   
   updateAttemptsUI();
   resetHintsUI();
+
+  // Reset collapsed panel state based on viewport size
+  if (hintsListCard) {
+    if (window.innerWidth <= 768) {
+      hintsListCard.classList.add('collapsed');
+    } else {
+      hintsListCard.classList.remove('collapsed');
+    }
+  }
   
   // Set placeholder hints during resolution
   for (let i = 1; i <= 3; i++) {
@@ -331,6 +388,9 @@ async function loadRound() {
   // Set current target city (async translation)
   const rawTarget = activeLocations[currentRoundIndex];
   currentTarget = await getTranslatedTarget(rawTarget, currentLanguage);
+  window.currentTarget = currentTarget;
+  window.map = map;
+  window.updateThermalProximity = updateThermalProximity;
 
   unlockHint(1, true); // Unlock famous fact immediately, silently
   updateSpeedMultiplierUI();
@@ -386,7 +446,7 @@ function updateSpeedMultiplierUI() {
 
 function updateAttemptsUI() {
   let heartsHtml = '';
-  for (let i = 1; i <= 3; i++) {
+  for (let i = 1; i <= 5; i++) {
     if (i <= currentAttempt) {
       heartsHtml += '<i data-lucide="heart" class="heart-icon filled"></i>';
     } else {
@@ -430,6 +490,22 @@ function unlockHint(number, silent = false) {
     hint4Unlocked = true;
     document.getElementById('map').classList.add('map-thermal-active');
     thermalCursor.classList.remove('hidden');
+
+    if (isTouchDevice) {
+      thermalCursor.style.left = '50%';
+      thermalCursor.style.top = '50%';
+      updateThermalProximity(map.getCenter());
+    }
+  }
+
+  // Auto-expand/collapse for hints on mobile
+  if (!silent && window.innerWidth <= 768 && hintsListCard) {
+    hintsListCard.classList.remove('collapsed');
+    setTimeout(() => {
+      if (isRoundActive && window.innerWidth <= 768) {
+        hintsListCard.classList.add('collapsed');
+      }
+    }, 3500);
   }
 }
 
@@ -463,13 +539,11 @@ function onMapClick(e) {
   guessInstructionMsg.innerHTML = `${prefixStr}: <span class="accent-text font-numeric">${guessLatLng.lat.toFixed(2)}°, ${guessLatLng.lng.toFixed(2)}°</span>`;
 }
 
-function onMapMouseMove(e) {
-  if (!hint4Unlocked || !isRoundActive || !currentTarget) return;
+function updateThermalProximity(latlng) {
+  if (!currentTarget) return;
 
-  const mouseLatLng = e.latlng;
   const targetLatLng = L.latLng(currentTarget.coords[0], currentTarget.coords[1]);
-  const distance = map.distance(mouseLatLng, targetLatLng); // distance in meters
-
+  const distance = map.distance(latlng, targetLatLng); // distance in meters
   const distanceKm = distance / 1000;
   
   // Set scaling boundary (0 km to 8,000 km)
@@ -485,11 +559,40 @@ function onMapMouseMove(e) {
   const scale = 1.0 + (1.0 - ratio) * 1.2;
   const glow = 10 + (1.0 - ratio) * 20;
 
-  // Update cursor style
-  thermalCursor.style.backgroundColor = `hsla(${hue}, 100%, 50%, 0.4)`;
-  thermalCursor.style.borderColor = `hsla(${hue}, 100%, 75%, 1)`;
-  thermalCursor.style.boxShadow = `0 0 ${glow}px ${glow / 2}px hsla(${hue}, 100%, 50%, 0.7)`;
-  thermalCursor.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  // Update cursor inner circle style
+  const circleEl = thermalCursor.querySelector('.thermal-circle');
+  if (circleEl) {
+    circleEl.style.backgroundColor = `hsla(${hue}, 100%, 50%, 0.4)`;
+    circleEl.style.borderColor = `hsla(${hue}, 100%, 75%, 1)`;
+    circleEl.style.boxShadow = `0 0 ${glow}px ${glow / 2}px hsla(${hue}, 100%, 50%, 0.7)`;
+    circleEl.style.transform = `scale(${scale})`;
+  }
+
+  // Update tooltip text and styles matching proximity color
+  const tooltipEl = document.getElementById('thermal-tooltip');
+  if (tooltipEl) {
+    let statusKey = 'thermal_freezing';
+    if (distanceKm < 500) {
+      statusKey = 'thermal_boiling';
+    } else if (distanceKm < 1500) {
+      statusKey = 'thermal_hot';
+    } else if (distanceKm < 3000) {
+      statusKey = 'thermal_warm';
+    } else if (distanceKm < 5000) {
+      statusKey = 'thermal_cool';
+    } else if (distanceKm < 8000) {
+      statusKey = 'thermal_cold';
+    }
+    tooltipEl.textContent = t(statusKey, currentLanguage);
+    tooltipEl.style.color = `hsla(${hue}, 100%, 80%, 1)`;
+    tooltipEl.style.textShadow = `0 0 6px hsla(${hue}, 100%, 50%, 0.7)`;
+    tooltipEl.style.borderColor = `hsla(${hue}, 100%, 50%, 0.4)`;
+  }
+}
+
+function onMapMouseMove(e) {
+  if (!hint4Unlocked || !isRoundActive || !currentTarget) return;
+  updateThermalProximity(e.latlng);
 }
 
 /* ----------------------------------------------------

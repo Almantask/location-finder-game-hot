@@ -19,7 +19,10 @@
 <body>
 
   <!-- Thermal Cursor Element -->
-  <div id="thermal-cursor" class="thermal-cursor hidden"></div>
+  <div id="thermal-cursor" class="thermal-cursor hidden">
+    <div class="thermal-circle"></div>
+    <span id="thermal-tooltip" class="thermal-tooltip"></span>
+  </div>
 
   <!-- Main App Wrapper -->
   <div id="app-container">
@@ -44,7 +47,7 @@
           <ul>
             <li data-i18n="rule_1">You will be given a target city to locate on a <strong>blind map</strong> (its name is hidden at first!).</li>
             <li data-i18n="rule_2">Click the map to place your guess marker, then click <strong>Confirm Guess</strong>.</li>
-            <li data-i18n="rule_3">You have <strong>3 attempts</strong> per location. Correct guess range is <strong>1000 km</strong>.</li>
+            <li data-i18n="rule_3">You have <strong>5 attempts</strong> per location. Correct guess range is <strong>1000 km</strong>.</li>
             <li><span data-i18n="rule_4">Every <strong>15 seconds</strong>, a new hint unlocks (first hint is available immediately):</span>
               <ol>
                 <li data-i18n="rule_4_1">Landmarks & Culture Clue (At Start)</li>
@@ -167,8 +170,11 @@
           </div>
 
           <div class="hints-list-card glass-panel">
-            <div class="hints-header">
-              <h3><i data-lucide="help-circle"></i> <span data-i18n="intel_brief">Intelligence Brief</span></h3>
+            <div class="hints-header" id="hints-header-btn">
+              <div class="hints-header-title">
+                <h3><i data-lucide="help-circle"></i> <span data-i18n="intel_brief">Intelligence Brief</span></h3>
+                <i data-lucide="chevron-down" class="hints-toggle-icon"></i>
+              </div>
               <div class="hint-timer-bar-wrapper">
                 <div id="hint-progress-bar" class="hint-timer-bar"></div>
               </div>
@@ -236,6 +242,8 @@
             <div class="attempts-container">
               <span class="attempts-label" data-i18n="attempts">ATTEMPTS</span>
               <div id="attempts-lives" class="hearts-list">
+                <i data-lucide="heart" class="heart-icon filled"></i>
+                <i data-lucide="heart" class="heart-icon filled"></i>
                 <i data-lucide="heart" class="heart-icon filled"></i>
                 <i data-lucide="heart" class="heart-icon filled"></i>
                 <i data-lucide="heart" class="heart-icon filled"></i>

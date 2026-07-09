@@ -163,17 +163,69 @@ input, select, button {
    ---------------------------------------------------- */
 .thermal-cursor {
   position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.thermal-circle {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 99999;
   border: 2px solid #ffffff;
   mix-blend-mode: normal;
+  position: relative;
   transition: background-color 0.1s ease, box-shadow 0.1s ease, transform 0.05s ease;
   box-shadow: 0 0 15px 5px rgba(0, 240, 255, 0.5);
   background-color: rgba(0, 240, 255, 0.3);
+}
+
+.thermal-tooltip {
+  margin-top: 10px;
+  background: rgba(7, 10, 19, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  z-index: 100000;
+  transition: color 0.1s ease, text-shadow 0.1s ease, border-color 0.1s ease;
+}
+
+.thermal-cursor.touch-device {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.thermal-cursor.touch-device .thermal-circle {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.thermal-cursor.touch-device .thermal-circle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  z-index: 2;
 }
 
 .map-thermal-active {
@@ -918,12 +970,41 @@ input, select, button {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-height: 600px;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), padding 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), gap 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+}
+
+.hints-list-card.collapsed {
+  max-height: 62px;
+  gap: 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .hints-header {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  cursor: pointer;
+}
+
+.hints-header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.hints-toggle-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.hints-list-card.collapsed .hints-toggle-icon {
+  transform: rotate(-180deg);
 }
 
 .hints-header h3 {
@@ -1292,6 +1373,10 @@ input, select, button {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .leaflet-control-zoom {
+    display: none !important;
+  }
+  
   .hud-top-bar {
     gap: 16px;
     padding: 8px 16px;
@@ -1342,6 +1427,116 @@ input, select, button {
   
   .logo-title {
     font-size: 2.2rem;
+  }
+
+  .modal-content {
+    padding: 16px !important;
+    gap: 16px !important;
+  }
+  
+  .summary-content {
+    padding: 20px !important;
+  }
+  
+  .summary-body {
+    margin: 16px 0 !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hud-top-bar {
+    gap: 6px !important;
+    padding: 6px 12px !important;
+    width: 98% !important;
+    border-radius: 20px;
+  }
+  
+  .hud-label {
+    font-size: 0.55rem !important;
+    letter-spacing: 0.05em !important;
+  }
+  
+  .hud-value {
+    font-size: 0.85rem !important;
+  }
+  
+  .hud-actions {
+    gap: 2px !important;
+    padding-left: 8px !important;
+  }
+  
+  .hud-icon-btn {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  
+  .hud-icon-btn i {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  
+  .target-name {
+    font-size: 1.25rem !important;
+  }
+  
+  .action-card {
+    grid-template-columns: 1fr;
+    padding: 8px 12px !important;
+    gap: 6px !important;
+  }
+  
+  .attempts-container {
+    padding-bottom: 6px !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .action-buttons {
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px !important;
+  }
+  
+  .action-msg {
+    font-size: 0.72rem !important;
+    text-align: left;
+    flex: 1;
+  }
+  
+  .bottom-actions-wrapper button {
+    min-width: 110px !important;
+    width: auto !important;
+    padding: 8px 12px !important;
+    font-size: 0.82rem !important;
+  }
+  
+  /* Hide leaderboard date column */
+  .leaderboard-table th:nth-child(5),
+  .leaderboard-table td:nth-child(5) {
+    display: none !important;
+  }
+  
+  .leaderboard-table th, .leaderboard-table td {
+    padding: 8px 10px !important;
+    font-size: 0.8rem;
+  }
+  
+  /* Stack game over submit form */
+  .form-inputs {
+    flex-direction: column !important;
+    gap: 8px;
+  }
+  
+  .highscore-form-card button {
+    width: 100% !important;
+    padding: 10px !important;
+  }
+  
+  /* Game Over buttons */
+  .game-over-actions {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
   }
 }
 
