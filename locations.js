@@ -8998,5 +8998,5 @@ export const locations = [
     "query1": "Lion Rock",
     "query2": "Matale District",
     "query3": "Lion Gate"
-  },
+  }
 ];
