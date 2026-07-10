@@ -819,7 +819,8 @@ function showRoundSummaryModal(distanceKm, accScore, speedScore, roundTotal, isS
     }
     
     const englishName = currentRawLocation ? currentRawLocation.name : currentTarget.name;
-    fetchLocationImages(englishName).then(urls => {
+    const imageLocation = currentRawLocation || currentTarget;
+    fetchLocationImages(imageLocation).then(urls => {
       if (!urls || urls.length === 0) {
         imagesContainer.style.display = 'none';
         return;
@@ -858,41 +859,52 @@ function showRoundSummaryModal(distanceKm, accScore, speedScore, roundTotal, isS
   summaryOverlay.classList.remove('hidden');
 }
 
-async function fetchLocationImages(locationName) {
-  const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(locationName)}&gsrnamespace=6&prop=imageinfo&iiprop=url&gsrlimit=30&format=json&origin=*`;
+async function searchOneImage(query, excludeKeywords, seen) {
+  const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrnamespace=6&prop=imageinfo&iiprop=url&gsrlimit=30&format=json&origin=*`;
   try {
     const res = await fetch(url, {
       headers: {
         'User-Agent': 'GeoClashGame/1.0 (https://github.com/Almantask/location-finder-game-hot; contact@example.com)'
       }
     });
-    if (!res.ok) throw new Error('Network response was not ok');
+    if (!res.ok) return null;
     const data = await res.json();
-    if (!data.query || !data.query.pages) {
-      return [];
-    }
+    if (!data.query || !data.query.pages) return null;
+
     const pages = Object.values(data.query.pages);
-    const images = [];
-    const excludeKeywords = ['map', 'flag', 'coat of arms', 'wappen', 'carte', 'location', 'svg', 'logo', 'icon', 'diagram', 'plan', 'population', 'districts', 'locator', 'seal', 'coa', 'shield'];
     for (const page of pages) {
       if (page.imageinfo && page.imageinfo[0]) {
         const imgUrl = page.imageinfo[0].url;
         const title = page.title.toLowerCase();
-        
         const ext = imgUrl.split('.').pop().toLowerCase();
-        if (['jpg', 'jpeg', 'png', 'webp'].includes(ext)) {
-          const hasExclude = excludeKeywords.some(keyword => title.includes(keyword));
-          if (!hasExclude) {
-            images.push(imgUrl);
-          }
-        }
+        if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) continue;
+        if (excludeKeywords.some(keyword => title.includes(keyword))) continue;
+        if (seen.has(imgUrl)) continue;
+        seen.add(imgUrl);
+        return imgUrl;
       }
     }
-    return images.slice(0, 3);
   } catch (err) {
-    console.error(`Error fetching images for ${locationName}:`, err);
-    return [];
+    console.error(`Error fetching image for "${query}":`, err);
   }
+  return null;
+}
+
+async function fetchLocationImages(location) {
+  const excludeKeywords = ['map', 'flag', 'coat of arms', 'wappen', 'carte', 'location', 'svg', 'logo', 'icon', 'diagram', 'plan', 'population', 'districts', 'locator', 'seal', 'coa', 'shield'];
+
+  // One search per hint (so up to 3 queries), using the curated query fields
+  const queries = [location.query1, location.query2, location.query3].filter(Boolean);
+  if (!queries.length) queries.push(`Most famous locations in ${location.name}`);
+
+  const urls = [];
+  const seen = new Set();
+  for (const q of queries) {
+    const img = await searchOneImage(q, excludeKeywords, seen);
+    if (img) urls.push(img);
+  }
+
+  return urls;
 }
 
 function openLightbox(imgUrl) {
