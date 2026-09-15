@@ -798,6 +798,18 @@ input, select, button {
   background-color: var(--bg-obsidian);
 }
 
+/* OpenFreeMap / MapLibre sits in Leaflet's tile pane; keep it dark and behind markers */
+.leaflet-gl-layer,
+.maplibregl-map,
+.maplibregl-canvas-container {
+  background: transparent;
+}
+
+.maplibregl-ctrl-attrib,
+.maplibregl-ctrl-logo {
+  display: none !important;
+}
+
 /* Custom Marker CSS Styling */
 .custom-guess-marker, .custom-target-marker {
   display: flex;

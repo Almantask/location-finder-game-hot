@@ -312,9 +312,72 @@ function startGame() {
   
   // Initialize Map if not done
   initMap();
+  if (map) {
+    requestAnimationFrame(() => map.invalidateSize());
+  }
 
   // Load Round 1
   loadRound();
+}
+
+const OPENFREEMAP_DARK_STYLE = 'https://tiles.openfreemap.org/styles/dark';
+const OPENFREEMAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://openfreemap.org">OpenFreeMap</a>';
+
+async function loadBlindMapStyle() {
+  const response = await fetch(OPENFREEMAP_DARK_STYLE);
+  if (!response.ok) {
+    throw new Error(`OpenFreeMap style request failed: ${response.status}`);
+  }
+
+  const style = await response.json();
+  // Keep the blind-map mechanic: geography without place/road names.
+  style.layers = (style.layers || []).filter((layer) => layer.type !== 'symbol');
+  return style;
+}
+
+function hideMapLibreSymbolLayers(glMap) {
+  const hideSymbols = () => {
+    const style = glMap.getStyle();
+    if (!style || !style.layers) return;
+    style.layers.forEach((layer) => {
+      if (layer.type === 'symbol' && glMap.getLayer(layer.id)) {
+        glMap.setLayoutProperty(layer.id, 'visibility', 'none');
+      }
+    });
+  };
+
+  if (glMap.isStyleLoaded && glMap.isStyleLoaded()) {
+    hideSymbols();
+  } else {
+    glMap.once('load', hideSymbols);
+  }
+}
+
+async function addFreeBasemap(leafletMap) {
+  if (typeof L.maplibreGL !== 'function') {
+    throw new Error('MapLibre GL Leaflet adapter is not loaded');
+  }
+
+  let style = OPENFREEMAP_DARK_STYLE;
+  let stripLabelsAfterLoad = true;
+
+  try {
+    style = await loadBlindMapStyle();
+    stripLabelsAfterLoad = false;
+  } catch (error) {
+    console.warn('Could not preload unlabeled OpenFreeMap style; hiding labels after load.', error);
+  }
+
+  const glLayer = L.maplibreGL({
+    style,
+    attribution: OPENFREEMAP_ATTRIBUTION
+  }).addTo(leafletMap);
+
+  if (stripLabelsAfterLoad) {
+    hideMapLibreSymbolLayers(glLayer.getMaplibreMap());
+  }
+
+  requestAnimationFrame(() => leafletMap.invalidateSize());
 }
 
 function initMap() {
@@ -332,12 +395,10 @@ function initMap() {
     maxBoundsViscosity: 0.8
   });
 
-  // Load Custom styled tiles: CartoDB Dark Matter No Labels
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_nolabels/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
-  }).addTo(map);
+  // OpenFreeMap: no API key, no usage cap. Labels are stripped for the blind map.
+  addFreeBasemap(map).catch((error) => {
+    console.error('Failed to load OpenFreeMap basemap', error);
+  });
 
   // Map click handler to place guess marker
   map.on('click', onMapClick);
