@@ -798,9 +798,9 @@ input, select, button {
   background-color: var(--bg-obsidian);
 }
 
-/* Darken NASA land/water tiles to match the original CARTO dark blind-map look */
+/* Dim NASA GIBS land/water tiles to the dark UI without hiding continents. */
 #map .leaflet-tile-pane {
-  filter: brightness(0.38) contrast(1.45);
+  filter: brightness(0.72) contrast(1.22) saturate(0.55);
 }
 
 /* Custom Marker CSS Styling */
