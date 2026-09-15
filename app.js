@@ -320,66 +320,6 @@ function startGame() {
   loadRound();
 }
 
-const OPENFREEMAP_DARK_STYLE = 'https://tiles.openfreemap.org/styles/dark';
-const OPENFREEMAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://openfreemap.org">OpenFreeMap</a>';
-
-async function loadBlindMapStyle() {
-  const response = await fetch(OPENFREEMAP_DARK_STYLE);
-  if (!response.ok) {
-    throw new Error(`OpenFreeMap style request failed: ${response.status}`);
-  }
-
-  const style = await response.json();
-  // Keep the blind-map mechanic: geography without place/road names.
-  style.layers = (style.layers || []).filter((layer) => layer.type !== 'symbol');
-  return style;
-}
-
-function hideMapLibreSymbolLayers(glMap) {
-  const hideSymbols = () => {
-    const style = glMap.getStyle();
-    if (!style || !style.layers) return;
-    style.layers.forEach((layer) => {
-      if (layer.type === 'symbol' && glMap.getLayer(layer.id)) {
-        glMap.setLayoutProperty(layer.id, 'visibility', 'none');
-      }
-    });
-  };
-
-  if (glMap.isStyleLoaded && glMap.isStyleLoaded()) {
-    hideSymbols();
-  } else {
-    glMap.once('load', hideSymbols);
-  }
-}
-
-async function addFreeBasemap(leafletMap) {
-  if (typeof L.maplibreGL !== 'function') {
-    throw new Error('MapLibre GL Leaflet adapter is not loaded');
-  }
-
-  let style = OPENFREEMAP_DARK_STYLE;
-  let stripLabelsAfterLoad = true;
-
-  try {
-    style = await loadBlindMapStyle();
-    stripLabelsAfterLoad = false;
-  } catch (error) {
-    console.warn('Could not preload unlabeled OpenFreeMap style; hiding labels after load.', error);
-  }
-
-  const glLayer = L.maplibreGL({
-    style,
-    attribution: OPENFREEMAP_ATTRIBUTION
-  }).addTo(leafletMap);
-
-  if (stripLabelsAfterLoad) {
-    hideMapLibreSymbolLayers(glLayer.getMaplibreMap());
-  }
-
-  requestAnimationFrame(() => leafletMap.invalidateSize());
-}
-
 function initMap() {
   if (map) return;
 
@@ -395,10 +335,18 @@ function initMap() {
     maxBoundsViscosity: 0.8
   });
 
-  // OpenFreeMap: no API key, no usage cap. Labels are stripped for the blind map.
-  addFreeBasemap(map).catch((error) => {
-    console.error('Failed to load OpenFreeMap basemap', error);
-  });
+  // NASA GIBS OSM land/water: public, no API key, no place names (blind map).
+  // CARTO's public dark_nolabels tiles now watermark "API KEY REQUIRED".
+  L.tileLayer(
+    'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/OSM_Land_Water_Map/default/GoogleMapsCompatible_Level9/{z}/{y}/{x}.png',
+    {
+      attribution: '<a href="https://earthdata.nasa.gov/gibs">NASA GIBS</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      bounds: [[-85.0511287776, -180], [85.0511287776, 180]],
+      minZoom: 1,
+      maxNativeZoom: 9,
+      maxZoom: 9
+    }
+  ).addTo(map);
 
   // Map click handler to place guess marker
   map.on('click', onMapClick);
