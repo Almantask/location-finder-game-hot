@@ -312,6 +312,9 @@ function startGame() {
   
   // Initialize Map if not done
   initMap();
+  if (map) {
+    requestAnimationFrame(() => map.invalidateSize());
+  }
 
   // Load Round 1
   loadRound();
@@ -332,12 +335,18 @@ function initMap() {
     maxBoundsViscosity: 0.8
   });
 
-  // Load Custom styled tiles: CartoDB Dark Matter No Labels
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_nolabels/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
-  }).addTo(map);
+  // NASA GIBS OSM land/water: public, no API key, no place names (blind map).
+  // CARTO's public dark_nolabels tiles now watermark "API KEY REQUIRED".
+  L.tileLayer(
+    'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/OSM_Land_Water_Map/default/GoogleMapsCompatible_Level9/{z}/{y}/{x}.png',
+    {
+      attribution: '<a href="https://earthdata.nasa.gov/gibs">NASA GIBS</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      bounds: [[-85.0511287776, -180], [85.0511287776, 180]],
+      minZoom: 1,
+      maxNativeZoom: 9,
+      maxZoom: 9
+    }
+  ).addTo(map);
 
   // Map click handler to place guess marker
   map.on('click', onMapClick);

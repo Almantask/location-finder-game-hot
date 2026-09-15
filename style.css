@@ -798,6 +798,11 @@ input, select, button {
   background-color: var(--bg-obsidian);
 }
 
+/* Darken NASA land/water tiles to match the original CARTO dark blind-map look */
+#map .leaflet-tile-pane {
+  filter: brightness(0.38) contrast(1.45);
+}
+
 /* Custom Marker CSS Styling */
 .custom-guess-marker, .custom-target-marker {
   display: flex;
